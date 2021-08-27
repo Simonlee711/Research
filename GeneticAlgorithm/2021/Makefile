@@ -4,7 +4,7 @@ all:	clean ${PDF}
 
 ${PDF}:	main.tex
 	ln -sf ../../bib/{*.bib,*.bst} .
-	ln -sf figures/*.eps .    
+	ln -sf figures/*.png .    
 	latexmk -pdf -jobname=$@ main
 
 clean		:
