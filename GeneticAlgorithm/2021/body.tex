@@ -23,7 +23,7 @@ The Genetic Algorithm (GA), is a metaheuristic algorithm inspired by \emph{Charl
 The way the genetic algorithm works is through bits represented in binary showing membership to a set, where 0 is denoted as not being a member of a particular set, and 1 being a member of a particular set. The use of binary is in efforts to reach a goal to emulate a genetic representation of a solutions domain. 
 Before populating a solutions domain, three factors must be determined: how long each bit sequence or \emph{genome} is to represent the \emph{n}  amount of individual \emph{things} or \emph{phenotypes} that are to be selected from, how many possible solutions we want to be randomly produced, and a limit that if succeeded will disqualify it as a valid solution. For example, the singular binary sequence \emph{1001010111} which signifies a single possible solution, shows a bit length of 10 resembling 10 possible phenotypes within a genome, while we see that 6 phenotypes are members of this solution, simply by counting the number of 1's that are present in the sequence. It is important to note that the genome length never increases or decreases because there are a fixed amount of phenotypes present, and that any number of bits can be flipped to a 1 as long as it remains less than or equal to the limit set. Once a limit and integer \emph{n} are chosen, \emph{n} amount of unique solutions will be produced of some selected arbritary length \emph{l}. This population of random possible solutions are what we refer to as a \emph{generation} and this first generation is called generation 0 (generations can be tracked by \emph{i-1 generations}, where \emph{i} marks the number of iterations). Furthermore, because all the possible solutions were randomly generated, this evolutionary process begins in complete \emph{chaos}.
 
-Next begins an iterative procedure that will continue to reproduce as long as there are more than one non-zero solutions from the pervious generation. A solution is changed to zero if and only if the total sum of the collection of items succeeds the limit. Before beginning to reproduce even more different solutions, the \emph{Natural Selection} process is introduced, where \emph{fitness, single-point crossovers, and mutations}, all concepts from \emph{Darwin's} Theory of Evolution are assessed. 
+Next begins an iterative procedure that will continue to reproduce as long as there are more than one non-zero solutions from the pervious generation. A solution is changed to zero if and only if the total sum of the collection of items succeeds the limit. So in order to reproduce even more different solutions, the \emph{Natural Selection} process is introduced, where \emph{fitness, single-point crossovers, and mutations}, all concepts from \emph{Darwin's} Theory of Evolution are assessed. 
 
 \subsection{Fitness}
 
@@ -96,28 +96,51 @@ At last, we have \emph{mutations}. Mutations in evolutionary biology are simply 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.5\textwidth]{flowchart.png}
+\includegraphics[width=.3\textwidth]{flowchart.png}
 \caption{A flowchart of the Genetic Algorithm \cite{Gutierrez-Navaro}}
 \end{figure}
 
-After the completion of this whole process as shown in Figure 1, this whole algorithm iterates from the top with the new generation until there are no satisfying solutions or if we have reached a extremely close approximation after a maximum number of generations.
-We will now begin to look at how this algorithm can be applied to our research, on the \emph{Phylogenetic Tree Construction}. 
+After the completion of this whole process as shown in Figure 1, this whole algorithm iterates from the top with the new generation until there are no satisfying solutions or if we have reached a extremely close approximation that converged and is deemed the optimal solution.
 
-\section{The Phylogenetic Tree}
+\subsection{Why use the Genetic Algorithm}
 
-The \emph{Phylogenetic Tree} are important representations constructed in many areas of biological research, ranging from systematic studies to the methods used for genome annotation \cite{Money}. This method has been used by bioinformaticians, to identify disease causing microbes, and determine its origin, how it might have spread, and routes of transmissions. In fact, the 2020 \emph{Severe Acute Respiratory Syndrome Coronavirus 2} (SARS-CoV-2), and its variants can be well tracked using the tools from phylogenetics, where each viral nucleic sequence can be analyzed to determine how it mutated based off of both the parent sequences and in a broader scale the \emph{SARS-CoV-1}. By identifying the sequences of these variants, they can then be classified to be more dangerous by its characterstics/behaviors and whether they can forgo the \emph{mRNA} vaccines used by \emph{Pfizer BioNTech} and \emph{Moderna}. 
+Though briefly describing the GA and its capability to solve problems which cannot be solved in any other means, we thought it would be beneficial to describe a more in-depth reasoning on what makes the GA so great in computation: 
+
+\begin{itemize}
+
+\item In parallel, GA's can process, populations that are billions times larger than a conventional computational algorithm. Particularly the expectation of a larger population is that it can sustain larger ranges of genetic variation, and thus generate high-fitness individuals in fewer generations. 
+
+\item Stochastic optimization relies on a specific criterion, and in bioinformatics the GA is used as a more natural and appropriate tool to handle such criterion (e.g. alignment score, overlap strength, energy, etc.).
+
+\item Problems in bioinformatics need the exact optimum solutions, which GA's are typically well known for in order to require robust, fast, and approximatite solutions. 
+
+\item Laboratory experiments and operations that involve DNA inherently involve errors. So using a deterministic algorithm where mutations occur, would highly break the characterstics of it being classified as deterministic, because given some particular input with mutations occuring, it may not always produce the same output in optimization problems. However with the GA, which is an evolutionary algorithm, mutations can contribute to genetic diversity, which is a desired property of such algorithms.  
+
+\end{itemize}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.5\textwidth]{ptrep.png}
+\includegraphics[width=.5\textwidth]{antenna.png}
+\caption{The series of evolutionary stages it took when working with the \emph{evolved antenna} by \emph{NASA}}
+\end{figure}
+
+After observing some advantages in using the Genetic Algorithm, we begin to explore how this method can be used to approach some application based problem. One of the most famous applications of the GA was used on the \emph{evolved antenna} performed by \emph{NASA}, which produced an optimized solution to see how an antenna could transmit the best signal through an evolutionary series of bends as shown in Figure 2. There have also been many occasions in bioinformatics where the alignment and comparisons of DNA, RNA, and protein sequences have been studied by the GA, as well as gene mappings, promoter identification, interpertations of micro array sequences, and many more. We wish to approach a similar problem in the field of bioinformatics where we begin to look at how this algorithm can be applied to our research, on the \emph{Phylogenetic Tree Reconstruction}. 
+
+\section{The Phylogenetic Tree}
+
+The \emph{Phylogenetic Tree} are important representations constructed in many areas of biological research, ranging from systematic studies to the methods used for genome annotation \cite{Money}. This method has been used by bioinformaticians, to identify disease causing microbes, and determine its origin, how it might have spread, and routes of transmissions. In fact, the 2020 \emph{Severe Acute Respiratory Syndrome Coronavirus 2} (SARS-CoV-2), and its variants can be well tracked using the tools from phylogenetics, where each viral nucleic sequence can be analyzed to determine how it mutated based off of both the parent sequences and in a broader scale the \emph{SARS-CoV-1}. By identifying the sequences of these variants, they can then be classified to be more dangerous by its characterstics/behaviors and whether they can forgo the \emph{mRNA} vaccines based on used by \emph{Pfizer BioNTech} and \emph{Moderna}. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.4\textwidth]{ptrep.png}
 \caption{A visual representation of the \emph{Phylogenetic Tree and its components} \cite{Gupta}}
 \end{figure}
 
-The basic components of a phylogenetic tree as represented by Figure 2, contains branches, also called edges that are connected to and terminate nodes or vertices. Branches can be classified in one of two ways: internal or external (terminal). These terminal nodes that are found at the tips of trees represent \emph{operational taxonomic units} also reffered to as OTU's. The essence of an OTU is to correspond their molecular sequences or species (taxa) from which the tree is deduced. On the other side, internal nodes represent the last common ancestor to the nodes that arise from the that point. The type of tree, we intend to work with is composed of a multi-gene family called a gene tree which looks at one species and all its different variations.
+The basic components of a phylogenetic tree as represented by Figure 3, contains branches, also called edges that are connected to and terminate nodes or vertices. Branches can be classified in one of two ways: internal or external (terminal). These terminal nodes that are found at the tips of trees represent \emph{operational taxonomic units} also reffered to as OTU's. The essence of an OTU is to correspond their molecular sequences or species (taxa) from which the tree is deduced. On the other side, internal nodes represent the last common ancestor to the nodes that arise from the that point. The type of tree, we intend to work with is composed of a multi-gene family called a gene tree which looks at one species and all its different variations.
 
 \subsection{The NP-hard Problem}
 
-Finding the most fit tree (solution) under any criterion, is considered to be a NP-hard problem within phylogenetic trees. When trying to construct a tree to find optimized solutions, it is best to use a heuristic that can both be classified as a search and optimization algorithm. Research has previously been done on the \emph{subtree-pruning-and-regrafting} (SPR) and \emph{nearest-neighbor-interchange} (NNI) methods \cite{Money}, in which it was proven to show that the SPR was able to reproduce very close optimized solutions that gave trees that were not too significantly off to that of the best tree. In our case, the GA is a metaheuristic which both is a tool for search and optimization problems and would be a perfect tool to be used to test its capabilities within a specific \textbf{species} dataset.
+Finding the most fit tree (solution) under any criterion, is considered to be a NP-hard problem within phylogenetic trees. When trying to construct a tree to find optimized solutions, it is best to use a heuristic that can both be classified as a search and optimization algorithm. That is why the GA is a great tool for such problems being a metaheuristic that specializes in navigating large search spaces to find optimized solutions in stochastic dynamical systems. Research has previously been done on GA with the \emph{subtree-pruning-and-regrafting} (SPR) and \emph{nearest-neighbor-interchange} (NNI) methods \cite{Money}, in which it was proven to show that the SPR was able to reproduce very close optimized solutions that gave trees that were not too significantly off to that of the best tree. In our case, we wish to use the GA which utilized the \emph{neighbor-joining algorithm}, which feeds off a distance-matrix produced by the GA and multiple sequence alignments that produce alignments needed from our Delta Coronavirus data from the NCBI. With this dataset, we intend to model the spreading of the SARS Delta Coronavirus as a phylogenetic tree of 10 different DNA sequences, in which we will produce the most optimized solution to find out the pattern of spread based on the sequence name. Before we begin to talk about our methodology, we wish to explain the more popular approach to the phylogenetic tree problem known as the Maximum-Likelihood Approach (ML). 
 
 \subsection{The Maximum-Likelihood Approach}
 
@@ -129,15 +152,80 @@ Mathematically we can visualize this method with the Cavendar-Farris model \cite
 \label{Cavendar-Farris}
 \tilde{\mathnormal{L}}(\chi;\mathnormal{T},\textbf{p})\cong -ln2\mathbb{P}[\chi|\mathnormal{T}, \textbf{p}] = -ln(\sum \limits_{\tilde{\chi}\in H(\chi)} \prod\limits_{e=(u,v)\in E(T)} p_e^{1\{\hat{\chi}(u)\neq\hat{\chi}(v)\}} (1-p_e)^{1\{\hat{\chi}(u)=\hat{\chi}(v)\}}) 
 \end{equation}
-Suppose we are given some arbitrary tree \emph{T} on \emph{n} leaves and the probabilities of transition on edges is, $\textbf{p} = \{ p_e \}_{e \in E(T)} \in [0,1/2]^{E_T}$, where E(T) is the set of edges for the tree and $E(T) \cong |E(T)|$ is the cardinality of E(T) \cite{Roch}. An understanding for the model can be obtained from the following steps: choose any vertex as the root; pick a state \{0,1\} for the root uniformly at random; When moving farther away from the root, each edge \emph{e} flips the state of its ancestor with the given probability $p_e$. And lastly we have to also assign a state for the leaves using the character $\chi$. An extension of $\chi$ occurs when the the vertices of \emph{T} are assigned a state of \{0,1\} for those equal to $\chi$ on the leaves. This set of all extensions $\chi$ can be reffered to $H(\chi)$.
+So suppose we are given some arbitrary tree \emph{T} on \emph{n} leaves and the probabilities of transition on edges is, $\textbf{p} = \{ p_e \}_{e \in E(T)} \in [0,1/2]^{E_T}$, where E(T) is the set of edges for the tree and $E(T) \cong |E(T)|$ is the cardinality of E(T) \cite{Roch}. An understanding for the model can be obtained from the following steps: choose any vertex as the root; pick a state \{0,1\} for the root uniformly at random; When moving farther away from the root, each edge \emph{e} flips the state of its ancestor with the given probability $p_e$. And lastly we have to also assign a state for the leaves using the character $\chi$. An extension of $\chi$ occurs when the the vertices of \emph{T} are assigned a state of \{0,1\} for those equal to $\chi$ on the leaves. This set of all extensions $\chi$ can be reffered to $H(\chi)$.
 
-Now that the fundamental componenets are understood, let us also break down from Equation 1, the Cavendar-Farris model. In this model if the set {A} is 1, it is known that A occurred, and would be 0 otherwise. In the maximum likelihood problem, we wish to compute $(T*,\textbf{b}*)$, which is minimizing $\tilde{\mathnormal{L}}(\chi;T,\textbf{p})$ over all trees and transition probability vectors. 
+Now that the fundamental componenets are understood, let us also explain what the Equation 1's, the Cavendar-Farris model purpose is. In this model if the set {A} is 1, it is known that event A occurred, and would be 0 otherwise. In the maximum likelihood problem, we wish to compute $(T*,\textbf{p}*)$, which is minimizing $\tilde{\mathnormal{L}}(\chi;T,\textbf{p})$ over all trees and transition probability vectors. So by computing all the sites, we can then assess which tree has the best fitness which will be deemed as our optimal solution. But as can seen, its inefficiencies lie directly because it constructs all nucleotides independently, and constructing and analyzing every single site can be computationally slow. But regardless of speed, plenty of research has been done using the Maximum Likelihood method with the Genetic Algorithm, and to this day, it is probably the most popular to solve phylogenetic tree reconstruction NP-problems due to its accuracy.  
 
-There is also another method in solving optimization problems using the GA, called the \emph{maximum parsimony} (MP). Though, we will not be discussing it in depth, the ML and MP share a useful connection. The maximum parsimony, is a far faster computing method, but the optimal tree is always determined as the shortest tree with the least amount of convergent evolution and mutations. It is also inconsistent statistically speaking, making it a hard method to rely and draw conclusions on. However discovered by \cite{Tuffley}: if one adds sufficiently many constant sites to data and applies the maximum likelihood technique 
+\subsection{The Distance-Matrix Approach}
 
-\subsection{The Distance-Matrix Approach}      
+Our preferred method of choice and the focus of this paper will however be on the \emph{Distance-matrix Method}. Distance-matrix methods are far more rapid compared to the maximum-likelihood, and it essentially measures the genetic distances between sequences. Once these distances are found, a distance matrix will be constructed, where the distance equates to the approximate evolutionary distance. However, the challenging aspect of this computational method is constructing the matrix itself. The distance matrix can be visualized as a $n * n$ matrix, where \emph{n} resembles the number of sequences. Every row corresponds to a single sequence and every columns corresponds to the distance between the sequences. By getting some collection of $n$ sequences, the matrix below can be constructed:
 
+\begin{equation}
+\label{Distance-matirx}
+\begin{bmatrix} 
+d_{11} & \cdots & d_{1n} \\
+d_{21} & d_{22} & d_{2n}\\
+\vdots & \ddots & \vdots\\
+d_{n1} & \cdots & d_{nn} \\
+\end{bmatrix}
+\end{equation}       
+In the distance matrix above, $d_{ij}$ can be broken down to where the distance is measured between the $i_{th}$ and $j_{th}$ sequences. Though this measure of weight is up to choice with methods like \emph{Jukes-Canton and p-Distances}, we are going to be using a popular method called \emph{multiple sequence alignment} because we are working with 3 or more genomes at once. This method will be used to obtain the genetic distance from a sequence alignment to help us construct our distance matrix with additional assistance from the GA. The algorithm will be explained in greater detail in Section 4.1. We will also be introducing the \emph{neighbor-joining algorithm} presented in Section 4.2 which uses the distance-matrix to compute an unresolved star tree topology, and transforms it into a tree where all the branches lengths are known. This method relies solely on how the matrix is constructed because there are a number of combinations that can be constructed within the distance matrices to feed the algorithm.      
+ 
+Distance-based methods like the neighbor-joining algorithm, are polynomial time and are quite rapid in practice. Within the distance-based methods, there are two different algorithms: \emph{cluster-based} and \emph{optimality-based}. The cluster-based algorithm builds its distance matrix by starting at similar sequence pairs, which are then used to construct the tree. This algorithm is found within the \emph{UPGMA} or \emph{unweighted pair group method using arithmetic average}, and our \emph{neighbor joining}. Meanwhile the optimality-based algorithm compare multitudes of different tree topologies and selects the best fit by determining computing distances in the trees, and the desired evolution or \emph{actual evolutionary distance}. This algorithm is common in \emph{Fitch-Margoliash} and \emph{minimum evolution} methods. But in retrospect, both these algorithms are computationally simpler than ML and therefore have our interests based on the advantage of speed.  
 
+\section{Our Methodology}
+
+In this section we now wish to bring in all the different components described in the previous sections to begin seeing how all the pieces fit together. In essence, we wish to construct phylogenetic trees to model the spread of the SARS Delta Coronavirus epidemic using 10 different DNA sequences which will be optimized using the GA. We identified in the previous section that we wish to approach the phylogenetic tree problem, using the GA, and the distance-matrix method with specifics to the Multiple sequence alignment (MSA), and Neighbor-joining (NJ) algorithms. 
+
+\subsection{Multiple Sequence alignment}
+
+Because we are looking at more than 3 different sequences of the SARS Delta Coronviruses which changed overtime, a multiple sequence alignment is a very practical tool used in bioinformatics to help analyze these dissimilarities within the sequences. What makes the multiple sequence alignment better than a global alignment algorithm would be that it would take into account the evolutionary events like fitness, single-point crossovers, mutations under certain criterion, as well as the fact that we will not need to construct multiple distance-matrices to resemble the dissimilarities between all 10 sequence combinations. 
+
+Once the alignments are obtained, various tree topologies are produced where the outputs are the information necessary to produce a distance-matrix used to show the relationships between mutation and evolution. This analysis of tree topologies show stable and unstable regions that maps mutation regions. All this information is valuable to us in our case because the phylogenetic tree in this SARS Delta Coronavirus research is used to find out the pattern of evolution based on the different genome samples in the NCBI database. By obtaining the genetic distances from these tree topologies which are the sequence alignments, we can then proceed to construct a distance-matrix which we can feed to the neighbor-joining algorithm to construct our most optimal fit tree.
+
+\subsection{Neighbor-joining Algorithm}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.35\textwidth]{nj.png}
+\caption{A visual representation of a distance matrix containing 7 species, beginning in the star-shape which then is then slowly constructed into a tree using the neighbor-joining algorithm based off a specific distance-matrix}
+\end{figure}
+
+Now that we have obtained a distance matrix, we can begin to construct the trees. As described in Figure 4, the tree begins in a star formation where there is no tree or lengths of branches shown or combined into internal nodes. But with this distance matrix, the distances represent the dissimilarity of the aligned sequence and can begin subsequent joining between neighbors. So from the diagram we can see that each OTU is represented as a fork. For each OTU, you want to compute the sum of distance between OTU one and another OTU, divided by (N-2), where N is the total number of OTU's. The equation can be represented to describ the following: 
+
+\begin{equation}
+\label{computation}
+S_i=\frac{1}{N-2}\sum_{k=1}^{N} D_{ik}\\
+\end{equation}
+Once you combine the two taxa on a node into a sub-tree, you want to calculate the new branch length which can be calculated by the following equation:
+
+\begin{equation}
+\label{branch-length}
+D_{Xi} = \frac{D_{ij}+S_i-S_j}{2}, D_{Xj} = \frac{D_{ij}+S_j-S_i}{2}\\
+\end{equation}
+And at last calculating the new matrix distance is done by connecting $i$ and $j$ and replace it with a node $x$ that connects it to the final equation:
+
+\begin{equation}
+\label{branch-length}
+D_{xk}=\frac{D_{ik}+D_{jk}-D_{ij}}{2}\\
+\end{equation}
+This sequence of steps are repeated for (N-2)! iterations. Once through with the Neighbor-joining algorithm, we then finally get around to the GA to optimize the solutions. All we must know from the GA, other than what was already described from the previous Section 2 - 2.4, is a scoring scheme called the Sum of Pairs, where $W_{ij}$ = weight/distance sequences i and j, and $S_{ij}$ = score between sequences i and j. These can be used to understand our final equation represented by the following:
+
+\begin{equation}
+\label{branch-length}
+\emph{Weighted sum of pairs} = \sum_{i=2}^{k} \sum_{j=1}^{i-1}W_{ij}S_{ij}
+\end{equation}
+
+\subsection{Genetic Algorithm Revisited}
+
+Lastly, though breifly described, we must explain how the genetic algorithm plays a role in everything. The GA has been used for Multiple sequence alignment (MSA) production in an attempt to broadly simulate the hypothesized evolutionary process that gave rise to the divergence in the query set. The method works by breaking a series of possible MSA's into fragments and repeatedly rearranging those fragments with the introduction of gaps at varying positions. A general objective function is optimized during the simulation, most generally the "sum of pairs" maximization function introduced in Equation 6. So now that we have all the moving parts addressed we can finally begin our analysis and report our findings of trying to apply these methodologies to the SARS Delta Coronavirus variants that have been wrecking havoc in the world. 
+
+\section{Our Analysis and Findings}
+
+In this section, we will begin to discuss our analysis and findings from the 10 DNA sequences of the SARS Delta Coronavirus genomes open for the public to use by the NBCI. We will first begin by running a multiple sequence alignment courtesy of the \emph{MUSCLE} or \textbf{MU}ltiple \textbf{S}equence \textbf{C}omparison by \textbf{L}og-\textbf{E}xpectation \cite{Madeira}, a software to run the multiple sequence alignment computation for our 10 genomes.    
+ 
+
+ 
 \begin{thebibliography}{15} 
 
 \bibitem{Fortnow} Fortnow, L., \emph{The Status of the P versus NP problem}, September 2009, Communications of the ACM 52(9):78-86
@@ -150,15 +238,15 @@ There is also another method in solving optimization problems using the GA, call
 
 \bibitem{Gupta} Gupta, M., Singh S,. \emph{A Novel Genetic Algorithm based Approach for Optimization of Distance Matrix for Phylogenetic Tree Construction}, International Journal of Computer Applications (0975 – 8887)
 
-\bibitem{Money} Money, D., Whelan, S., \emph{Characterizing the Phylogenetic Tree-Search Problem}, Systematic Biology, Volume 61, Issue 2, March 2012, Page 228
-
-Volume 52– No.9, August 2012
+\bibitem{Money} Money, D., Whelan, S., \emph{Characterizing the Phylogenetic Tree-Search Problem}, Systematic Biology, Volume 61, Issue 2, March 2012, Page 228. 
 
 \bibitem{Eiben} Eiben A.E., Raué P.E., Ruttkay Z. (1994) \emph{Genetic algorithms with multi-parent recombination In}: Davidor Y., Schwefel HP., Männer R. (eds) Parallel Problem Solving from Nature — PPSN III. PPSN 1994. Lecture Notes in Computer Science, vol 866. Springer, Berlin, Heidelberg.
 
 \bibitem{Roch} Roch, S., \emph{A Short Proof that Phylogenetic Tree Reconstruction by Maximum Likelihood Is Hard}, IEEE/ACM Transactions on Computational Biology and Bioinformatics, Volume 3 Issue 1, January 2006
 
 \bibitem{Tuffley} Tuffley, C., Steel, M., \emph{Links between maximum likelihood and maximum parsimony under a simple model of site substitution}, Bull Math Biol., vol. 59, no. 3, pp. 581-607, 1997.
+
+\bibitem{Madeira} Madeira F, Park YM, Lee J, et al. \emph{The EMBL-EBI search and sequence analysis tools APIs in 2019}. Nucleic Acids Research. 2019
 
 \end{thebibliography}
 

@@ -1,0 +1,17 @@
+{"assemblies": [
+{
+  "files": [
+    {
+      "filePath": "data_report.jsonl",
+      "fileType": "DATA_REPORT"
+    },
+    {
+      "filePath": "genomic.fna",
+      "fileType": "GENOMIC_NUCLEOTIDE_FASTA"
+    },
+    {
+      "filePath": "virus_dataset.md",
+      "fileType": "README"
+    }
+  ]
+}]}
