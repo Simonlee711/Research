@@ -6,8 +6,16 @@
       "fileType": "DATA_REPORT"
     },
     {
+      "filePath": "cds.fna",
+      "fileType": "CDS_NUCLEOTIDE_FASTA"
+    },
+    {
       "filePath": "genomic.fna",
       "fileType": "GENOMIC_NUCLEOTIDE_FASTA"
+    },
+    {
+      "filePath": "protein.faa",
+      "fileType": "PROTEIN_FASTA"
     },
     {
       "filePath": "virus_dataset.md",

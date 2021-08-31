@@ -15,12 +15,12 @@ Therefore, a solution to the \emph{Knapsack problem} and other time-consuming pr
 \section{The Genetic Algorithm}
 \label{sec: the genetic algorithm}
 
-The Genetic Algorithm (GA), is a metaheuristic algorithm inspired by \emph{Charles Darwin's} theory of \emph{Natural Selection}, used for solving optimization and search problems in machine learning. This algorithm's strict purpose is to solve for problems that would take a long time to solve, often producing one of the best approximated solutions. The ability to begin solving \emph{NP} problems is just scratching the surface and with this algorithm there is an expectation for more complex systems and hypotheses to be approached in this manner.
+The Genetic Algorithm (GA), is a metaheuristic algorithm inspired by \emph{Charles Darwin's} theory of \emph{Natural Selection}, used for solving optimization and search problems in machine learning. This algorithm's strict purpose is to solve for problems that would take a long time to solve, often producing one of the best approximated solutions. The ability to begin solving \emph{NP-hard} problems is just scratching the surface and with this algorithm there is an expectation for more complex systems and hypotheses to be approached in this manner. \emph{The following example in Sections 2.1-2.4 is the GA applied to a very basic simulation of the Knapsack Problem. Code is written all in Python for simplicity and easily readable code, but we intend to use MatLab as well in our research}.
 
 \subsection{The Setup}
 \label{setup} 
 
-The way the genetic algorithm works is through bits represented in binary showing membership to a set, where 0 is denoted as not being a member of a particular set, and 1 being a member of a particular set. The use of binary is in efforts to reach a goal to emulate a genetic representation of a solutions domain. 
+The way the genetic algorithm works is through bits (or nucletides bases) represented in binary showing membership to a set, where 0 is denoted as not being a member of a particular set, and 1 being a member of a particular set. The use of binary is in efforts to reach a goal to emulate a genetic representation of a solutions domain. 
 Before populating a solutions domain, three factors must be determined: how long each bit sequence or \emph{genome} is to represent the \emph{n}  amount of individual \emph{things} or \emph{phenotypes} that are to be selected from, how many possible solutions we want to be randomly produced, and a limit that if succeeded will disqualify it as a valid solution. For example, the singular binary sequence \emph{1001010111} which signifies a single possible solution, shows a bit length of 10 resembling 10 possible phenotypes within a genome, while we see that 6 phenotypes are members of this solution, simply by counting the number of 1's that are present in the sequence. It is important to note that the genome length never increases or decreases because there are a fixed amount of phenotypes present, and that any number of bits can be flipped to a 1 as long as it remains less than or equal to the limit set. Once a limit and integer \emph{n} are chosen, \emph{n} amount of unique solutions will be produced of some selected arbritary length \emph{l}. This population of random possible solutions are what we refer to as a \emph{generation} and this first generation is called generation 0 (generations can be tracked by \emph{i-1 generations}, where \emph{i} marks the number of iterations). Furthermore, because all the possible solutions were randomly generated, this evolutionary process begins in complete \emph{chaos}.
 
 Next begins an iterative procedure that will continue to reproduce as long as there are more than one non-zero solutions from the pervious generation. A solution is changed to zero if and only if the total sum of the collection of items succeeds the limit. So in order to reproduce even more different solutions, the \emph{Natural Selection} process is introduced, where \emph{fitness, single-point crossovers, and mutations}, all concepts from \emph{Darwin's} Theory of Evolution are assessed. 
@@ -33,8 +33,6 @@ def fitness(genome: Genome, things: List[Thing], weight_limit: int) -> int:
     '''
     This evaluates a solution and sees its fitness level and whether it succeeds the limit that was established
     '''
-    if len(genome) != len(things):
-        raise ValueError("genome and things must be of same length")
 
     weight, value = 0
 
@@ -50,7 +48,7 @@ def fitness(genome: Genome, things: List[Thing], weight_limit: int) -> int:
 
 \end{lstlisting}
 
-In the Python code above, we revisit the \emph{Knapsack Problem} to demonstate each particular component of the \emph{Natural Selection}. To begin, the fitness function's primary purpose is to assess a fitness value (the closer it is to the limit, the better), which essentially tells the person how good of an approximation a given solution actually is. It begins by first checking that the string length of the genome, is equivalent to that of the number of items (phenotypes) present. Next we initializes a weight, and value to 0 so the sum can always be calculated correctly. Finally as it iterates through the for loop, the function  will check the bits that have been flipped to 1, and add those weights and value of items up, checking whether it succeeds the limit. The return value of this function is the list of items as long as it complies with the weight limit, where if it succeeds it simply just returns 0.   
+To begin, the fitness function's primary purpose is to assess a fitness value (the closer it is to the limit, the better), which essentially tells the person how good of an approximation a given solution actually is. It begins by first checking that the string length of the genome, is equivalent to that of the number of items (phenotypes) present. Next we initializes a weight, and value to 0 so the sum can always be calculated correctly. Finally as it iterates through the for loop, the function  will check the bits that have been flipped to 1, and add those weights and value of items up, checking whether it succeeds the limit. The return value of this function is the list of items as long as it complies with the weight limit, where if it succeeds it simply just returns 0.   
 
 \subsection{Single-point Crossovers} 
 
@@ -92,7 +90,7 @@ def mutation(genome: Genome, num: int = 1, probability: float = 0.5) -> Genome:
 
 \end{lstlisting} 
 
-At last, we have \emph{mutations}. Mutations in evolutionary biology are simply a change in a sequence of an organism's DNA. However, since we are not working with nucleotide bases but rather with bits, we must also familiarize ourselves with \emph{noise}, a concept that dates back to an interests of Einstein (1905). In the communication domain, noise (unwanted random disturbances) make it difficult to have a trivial signal. These fluctuations occur when there is a suspected origin that implicates the action of a very large number of "degrees of freedom" or variables. The coupling of noise to nonlinear dynamical systems can lead to non-trivial effects like, unstable equilibria and shift bifuracations \cite{Gammaitoni}. Therefore it is widely believed that noise drastically modifies the deterministic dynamics of this system adopting its stochastic qualities. So in our case, noise behaves similarly to mutations where a singular random bit might get flipped. The way we simulate this behavior on a computer is by random probability. In the Python function above, we run a single iteration of the for loop, with a probability of your choice, in our case 0.5 to determine whether a random bit gets flipped. Though it may be possible to destroy one of our best solutions, mutations are essential to evolution. The new genetic variant (allele) spreads via differential reproduction and is a defining aspect of evolution. So although there is some random probability to destroy our best fit genome, there is also an equal chance that we construct an even better solution. 
+At last, we have \emph{mutations}. Mutations in evolutionary biology are simply a change in a sequence of an organism's DNA. However, since we are not working with nucleotide bases in this example but rather with bits, we must also familiarize ourselves with \emph{noise}, a concept that dates back to an interests of Einstein (1905). In the communication domain, noise (unwanted random disturbances) make it difficult to have a trivial signal. These fluctuations occur when there is a suspected origin that implicates the action of a very large number of "degrees of freedom" or variables. The coupling of noise to nonlinear dynamical systems can lead to non-trivial effects like, unstable equilibria and shift bifuracations \cite{Gammaitoni}. Therefore it is widely believed that noise drastically modifies the deterministic dynamics of this system adopting its stochastic qualities. So in our case, noise behaves similarly to mutations where a singular random bit might get flipped. The way we simulate this behavior on a computer is by random probability. In the Python function above, we run a single iteration of the for loop, with a probability of your choice, in our case 0.5 to determine whether a random bit gets flipped. Though it may be possible to destroy one of our best solutions, mutations are essential to evolution. The new genetic variant (allele) spreads via differential reproduction and is a defining aspect of evolution. So although there is some random probability to destroy our best fit genome, there is also an equal chance that we construct an even better solution. 
 
 \begin{figure}[h]
 \centering
@@ -140,7 +138,7 @@ The basic components of a phylogenetic tree as represented by Figure 3, contains
 
 \subsection{The NP-hard Problem}
 
-Finding the most fit tree (solution) under any criterion, is considered to be a NP-hard problem within phylogenetic trees. When trying to construct a tree to find optimized solutions, it is best to use a heuristic that can both be classified as a search and optimization algorithm. That is why the GA is a great tool for such problems being a metaheuristic that specializes in navigating large search spaces to find optimized solutions in stochastic dynamical systems. Research has previously been done on GA with the \emph{subtree-pruning-and-regrafting} (SPR) and \emph{nearest-neighbor-interchange} (NNI) methods \cite{Money}, in which it was proven to show that the SPR was able to reproduce very close optimized solutions that gave trees that were not too significantly off to that of the best tree. In our case, we wish to use the GA which utilized the \emph{neighbor-joining algorithm}, which feeds off a distance-matrix produced by the GA and multiple sequence alignments that produce alignments needed from our Delta Coronavirus data from the NCBI. With this dataset, we intend to model the spreading of the SARS Delta Coronavirus as a phylogenetic tree of 10 different DNA sequences, in which we will produce the most optimized solution to find out the pattern of spread based on the sequence name. Before we begin to talk about our methodology, we wish to explain the more popular approach to the phylogenetic tree problem known as the Maximum-Likelihood Approach (ML). 
+Finding the most fit tree (solution) under any criterion, is considered to be a NP-hard problem within phylogenetic trees. When trying to construct a tree to find optimized solutions, it is best to use a heuristic that can both be classified as a search and optimization algorithm. That is why the GA is a great tool for such problems being a metaheuristic that specializes in navigating large search spaces to find optimized solutions in stochastic dynamical systems. Research has previously been done on GA with the \emph{subtree-pruning-and-regrafting} (SPR) and \emph{nearest-neighbor-interchange} (NNI) methods \cite{Money}, in which it was proven to show that the SPR was able to reproduce very close optimized solutions that gave trees that were not too significantly off to that of the best tree. In our case, we wish to utilize the \emph{neighbor-joining algorithm}, which feeds off a distance-matrix produced by the a multiple sequence alignment algorithm that uses the GA called \emph{Sequence alignment by genetic algorithm} (SAGA) that shows the relationship between closely related protein sequences needed to construct our tree for our Delta Coronavirus data from the NCBI. With this dataset, we intend to model the spreading of the SARS Delta Coronavirus as a phylogenetic tree between 10 different species DNA sequences which will then be transformed into protein sequences, in which we will produce the most optimized solution to find out the pattern of spread labeled by their genbank access codes. Before we begin to talk about our methodology, we wish to explain the more popular approach to the phylogenetic tree problem known as the Maximum-Likelihood Approach (ML). 
 
 \subsection{The Maximum-Likelihood Approach}
 
@@ -169,19 +167,19 @@ d_{21} & d_{22} & d_{2n}\\
 d_{n1} & \cdots & d_{nn} \\
 \end{bmatrix}
 \end{equation}       
-In the distance matrix above, $d_{ij}$ can be broken down to where the distance is measured between the $i_{th}$ and $j_{th}$ sequences. Though this measure of weight is up to choice with methods like \emph{Jukes-Canton and p-Distances}, we are going to be using a popular method called \emph{multiple sequence alignment} because we are working with 3 or more genomes at once. This method will be used to obtain the genetic distance from a sequence alignment to help us construct our distance matrix with additional assistance from the GA. The algorithm will be explained in greater detail in Section 4.1. We will also be introducing the \emph{neighbor-joining algorithm} presented in Section 4.2 which uses the distance-matrix to compute an unresolved star tree topology, and transforms it into a tree where all the branches lengths are known. This method relies solely on how the matrix is constructed because there are a number of combinations that can be constructed within the distance matrices to feed the algorithm.      
+In the distance matrix above, $d_{ij}$ can be broken down to where the distance is measured between the $i_{th}$ and $j_{th}$ sequences. Though this measure of weight is up to choice with methods like \emph{Jukes-Canton and p-Distances}, we are going to be using a popular multiple sequence alignment method called \emph{Sequence Alignment by Genetic Algorithm} (SAGA), because we are working with 3 or more genomes at once. This method will be used to obtain the genetic distance from a sequence alignment to help us construct our distance matrix with additional assistance from the GA. The algorithm will be explained in greater detail in Section 4.1. We will also be introducing the \emph{neighbor-joining algorithm} presented in Section 4.2 which uses the distance-matrix produced by SAGA to compute an unresolved star tree topology, and transforms it into a tree where all the branches lengths are known. This method relies solely on how the matrix is constructed because there are a number of combinations that can be constructed within the distance matrices to feed the algorithm.      
  
 Distance-based methods like the neighbor-joining algorithm, are polynomial time and are quite rapid in practice. Within the distance-based methods, there are two different algorithms: \emph{cluster-based} and \emph{optimality-based}. The cluster-based algorithm builds its distance matrix by starting at similar sequence pairs, which are then used to construct the tree. This algorithm is found within the \emph{UPGMA} or \emph{unweighted pair group method using arithmetic average}, and our \emph{neighbor joining}. Meanwhile the optimality-based algorithm compare multitudes of different tree topologies and selects the best fit by determining computing distances in the trees, and the desired evolution or \emph{actual evolutionary distance}. This algorithm is common in \emph{Fitch-Margoliash} and \emph{minimum evolution} methods. But in retrospect, both these algorithms are computationally simpler than ML and therefore have our interests based on the advantage of speed.  
 
 \section{Our Methodology}
 
-In this section we now wish to bring in all the different components described in the previous sections to begin seeing how all the pieces fit together. In essence, we wish to construct phylogenetic trees to model the spread of the SARS Delta Coronavirus epidemic using 10 different DNA sequences which will be optimized using the GA. We identified in the previous section that we wish to approach the phylogenetic tree problem, using the GA, and the distance-matrix method with specifics to the Multiple sequence alignment (MSA), and Neighbor-joining (NJ) algorithms. 
+In this section we now wish to bring in all the different components described in the previous sections to begin seeing how all the pieces fit together. In essence, we wish to construct phylogenetic trees to model the spread of the SARS Delta Coronavirus epidemic between 10 different species DNA sequences. We identified in the previous section that we wish to approach the phylogenetic tree problem, using the Neighbor-joining (NJ) algorithm, which is fed a distance matrix built by the Sequence alignment by genetic algorithm (SAGA) (SAGA only works on protein sequences, so DNA must be converted into proteins) that compares and outputs the dissimilarities between all genome sequences.  
 
-\subsection{Multiple Sequence alignment}
+\subsection{Sequence Alignment by Genetic Algorithm}
 
-Because we are looking at more than 3 different sequences of the SARS Delta Coronviruses which changed overtime, a multiple sequence alignment is a very practical tool used in bioinformatics to help analyze these dissimilarities within the sequences. What makes the multiple sequence alignment better than a global alignment algorithm would be that it would take into account the evolutionary events like fitness, single-point crossovers, mutations under certain criterion, as well as the fact that we will not need to construct multiple distance-matrices to resemble the dissimilarities between all 10 sequence combinations. 
+Because we are looking at more than 3 different sequences of the SARS Delta Coronviruses which changed overtime, a multiple sequence alignment like SAGA is a very practical tool used in bioinformatics to help analyze these dissimilarities within multiple protein sequences. Because we have raw DNA data from the NCBI, we first must convert the DNA sequences into amino acids, and transform them into their protein forms. However, when SAGA is computed, because there will be less differences from amino acids naturally compared to its DNA form, it will help be compared at this level more easily. Additionally, what makes this method better than mutliple sequence alignment (MSA) algorithms like MUSCLE (MUltiple Sequence Comparison by Log-Expectation) would be that it would take into account the genetic algorithm events like fitness, single-point crossovers, mutations under certain criterion to build a single optimal tree in the form of a distance-matirx versus all the other methods which required a larger amount of computation. This approach to build out a distance matrix, is far easier to be analyzed once the algorithm is completed and is therefore more organized. 
 
-Once the alignments are obtained, various tree topologies are produced where the outputs are the information necessary to produce a distance-matrix used to show the relationships between mutation and evolution. This analysis of tree topologies show stable and unstable regions that maps mutation regions. All this information is valuable to us in our case because the phylogenetic tree in this SARS Delta Coronavirus research is used to find out the pattern of evolution based on the different genome samples in the NCBI database. By obtaining the genetic distances from these tree topologies which are the sequence alignments, we can then proceed to construct a distance-matrix which we can feed to the neighbor-joining algorithm to construct our most optimal fit tree.
+By obtaining the genetic distances which are the differences in sequence alignments from genome to genome from the SAGA software, we can then proceed to construct a distance-matrix. As a result, various tree topologies are visualized because not all trees are built in just one way, and can usually have multiple representations of the same distance-matrix. But thanks to SAGA, we have now prepared all the components for the tree construction itself by finalizing the matrix that we will feed into our Python/MatLab neighbor-joining programs. So with this information, we can use it in our SARS Delta Coronavirus research to find out the pattern of evolution based on the different genome samples from the NCBI database.
 
 \subsection{Neighbor-joining Algorithm}
 
@@ -191,7 +189,7 @@ Once the alignments are obtained, various tree topologies are produced where the
 \caption{A visual representation of a distance matrix containing 7 species, beginning in the star-shape which then is then slowly constructed into a tree using the neighbor-joining algorithm based off a specific distance-matrix}
 \end{figure}
 
-Now that we have obtained a distance matrix, we can begin to construct the trees. As described in Figure 4, the tree begins in a star formation where there is no tree or lengths of branches shown or combined into internal nodes. But with this distance matrix, the distances represent the dissimilarity of the aligned sequence and can begin subsequent joining between neighbors. So from the diagram we can see that each OTU is represented as a fork. For each OTU, you want to compute the sum of distance between OTU one and another OTU, divided by (N-2), where N is the total number of OTU's. The equation can be represented to describ the following: 
+Now that we have obtained a distance matrix, we can begin to construct the trees. As described in Figure 4, the tree begins in a star formation where there is no tree or lengths of branches shown or combined into internal nodes. But with this distance matrix, the distances represent the dissimilarity of the aligned sequence and can begin subsequent joining between neighbors. So from the diagram we can see that each OTU is represented as a fork. For each OTU, you want to compute the sum of distance between OTU one and another OTU, divided by (N-2), where N is the total number of OTU's. The equation can be represented to describe the following: 
 
 \begin{equation}
 \label{computation}
@@ -209,21 +207,44 @@ And at last calculating the new matrix distance is done by connecting $i$ and $j
 \label{branch-length}
 D_{xk}=\frac{D_{ik}+D_{jk}-D_{ij}}{2}\\
 \end{equation}
-This sequence of steps are repeated for (N-2)! iterations. Once through with the Neighbor-joining algorithm, we then finally get around to the GA to optimize the solutions. All we must know from the GA, other than what was already described from the previous Section 2 - 2.4, is a scoring scheme called the Sum of Pairs, where $W_{ij}$ = weight/distance sequences i and j, and $S_{ij}$ = score between sequences i and j. These can be used to understand our final equation represented by the following:
+This sequence of steps are repeated for (N-2)! iterations.
 
-\begin{equation}
-\label{branch-length}
-\emph{Weighted sum of pairs} = \sum_{i=2}^{k} \sum_{j=1}^{i-1}W_{ij}S_{ij}
-\end{equation}
-
-\subsection{Genetic Algorithm Revisited}
-
-Lastly, though breifly described, we must explain how the genetic algorithm plays a role in everything. The GA has been used for Multiple sequence alignment (MSA) production in an attempt to broadly simulate the hypothesized evolutionary process that gave rise to the divergence in the query set. The method works by breaking a series of possible MSA's into fragments and repeatedly rearranging those fragments with the introduction of gaps at varying positions. A general objective function is optimized during the simulation, most generally the "sum of pairs" maximization function introduced in Equation 6. So now that we have all the moving parts addressed we can finally begin our analysis and report our findings of trying to apply these methodologies to the SARS Delta Coronavirus variants that have been wrecking havoc in the world. 
 
 \section{Our Analysis and Findings}
 
-In this section, we will begin to discuss our analysis and findings from the 10 DNA sequences of the SARS Delta Coronavirus genomes open for the public to use by the NBCI. We will first begin by running a multiple sequence alignment courtesy of the \emph{MUSCLE} or \textbf{MU}ltiple \textbf{S}equence \textbf{C}omparison by \textbf{L}og-\textbf{E}xpectation \cite{Madeira}, a software to run the multiple sequence alignment computation for our 10 genomes.    
- 
+At last, we will begin discussing our procedures, analysis, and findings of the SARS Delta Coronavirus and how it spread amonst the 10 species sequences offered by the NCBI. As described in Section 4.1, because we were given raw data of DNA genomes, we first must convert them to its protein sequence form. In addition to the transformation from a DNA to a protein, the first steps is to transcribe DNA into RNA. Luckily this is quite simple in that all nucleotide bases remain the same minus the thymine (T) nucleotide base, which is converted into Uracil (U). Once in its RNA form, you translate the mRNA which selects codons or 3-pair RNA sequences and builds subunits of the proteins that contain a specific series of amino acids in which you will end up with the protein itself. We perform this computation through a python module in simple fashion as shown in the table below.
+
+\begin{center}
+\begin{tabular}{||c | c||} 
+ \hline
+ Genbank Code & Protein Sequence (first 25 Amino Acids) \\
+ \hline\hline
+ HKU11-934 & MVKNVSKRSPIVLPQIQPPPLQLFI \\  
+ \hline
+ HKU12-600 & MAMNIAKRSPIVLPQIQPPPLQLFI \\ 
+ \hline
+ HKU13-3514 & MAKNKEKRSPIVLPELVPPPLQLFI \\
+ \hline
+ HKU16 & MGKNNPKRSPIVLPDPIPPPLQLFI \\
+ \hline
+ HKU17 & MAKNKSKRDAIALPENVPPPLQLFI \\
+ \hline
+ HKU18 & MAKNKEKRSPIALPEVVPPPLQLFI \\  
+ \hline
+ HKU19 & MGSKQVDHTCLTIPPNPSKTLALFI \\ 
+ \hline
+ HKU20 & MANKARPKGILVIPELSNNSSLLLL \\ 
+ \hline
+ HKU21 & MTKNSFDVGKVITLPKVIPPPLQLF \\ 
+ \hline
+ HKU15 & MAKNKSKRDAIALPENVPPPLQLFI \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+Interesting enough, the protein sequences have shown some similarities between one another, which will do wonders when the tree is constructed but also contains a series of protein sequences that have no correlation. We will do more analysis of these sequences in depth at a later time. But now that we have the 10 species protein sequences, we will begin our first official step which is trying to establish the distance matrix using the Sequence Alignment by Genetic Algorithm, which will take all 10 sequences and return a value of dissimilarities between each sequence which will help us in our opportunity to construct our first tree model.  
+
+   
 
  
 \begin{thebibliography}{15} 
