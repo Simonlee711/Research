@@ -5,12 +5,12 @@ __author__ = 'Simon Lee, siaulee@ucsc.edu'
 import random
 import copy
 import math
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 #inititialization
-POPULATION_SIZE = 20
-CITIES_SIZE = 20
-TOUR_SIZE = 21
+POPULATION_SIZE = 10
+CITIES_SIZE = 10
+TOUR_SIZE = 11
 NUM_EXECUTIONS = 9999
 population = []
 x = []
@@ -35,12 +35,13 @@ def generatePossiblePath():
     path = []
     for _ in range(1, CITIES_SIZE + 1):
         # generates a new number between 1 - 20
-        randomNum = random.randint(1,20)
+        randomNum = random.randint(1,10)
         # while the generated number exists in the list, generates a new one
         while(numberExistsInPath(path, randomNum)):
-            randomNum = random.randint(1, 20)
+            randomNum = random.randint(1, 10)
         path.append(randomNum)
     population.append(path)
+    
 
 
 ''' Method to verify if the number is already in the path'''
@@ -71,6 +72,9 @@ always have to arrive at the same place of where it started. The hamiltonian cyc
 def generateTour():
     global tour
     tour = copy.deepcopy(population)
+    print("-------------------")
+    print(str(tour))
+    print("-------------------")
     for ways in tour:
         first = ways[0]
         ways.append(first)
@@ -83,8 +87,8 @@ def calculateDistances():
     distances = [0 for x in range(CITIES_SIZE)]
     for i in range(len(population)):
         for j in range(len(population[i])):
-            firstPos = 19 if tour[i][j] == 20 else tour[i][j]
-            secondPos = 19 if tour[i][j+1] == 20 else tour[i][j+1]
+            firstPos = 9 if tour[i][j] == 10 else tour[i][j]
+            secondPos = 9 if tour[i][j+1] == 10 else tour[i][j+1]
             distances[i] += round(dCidade[firstPos][secondPos], 4)
     dict_dist = {i: distances[i] for i in range(0, len(distances))}
     distances = copy.deepcopy(dict_dist)
@@ -138,8 +142,8 @@ def mutate(matrix):
         for _ in range(0, len(matrix[i])):
             ranNum = random.randint(1,100)
             if ranNum >= 1 and ranNum <= 2:
-                indexOne = random.randint(0,19)
-                indexTwo = random.randint(0,19)
+                indexOne = random.randint(0,9)
+                indexTwo = random.randint(0,9)
                 auxOne = matrix[i][indexOne]
                 auxTwo = matrix[i][indexTwo]
                 matrix[i][indexOne] = auxTwo
@@ -233,12 +237,12 @@ def main():
     # generates a fitness value for the last population
     sorted_x = FitnessFunction()
 
-    print('Total Population:' + POPULATION_SIZE)
+    print('Total Population: ' + str(POPULATION_SIZE))
     print('Mutation Probabiltiy: 2%')
-    print('Number of Cities:' + CITIES_SIZE)
+    print('Number of Cities: ' + str(CITIES_SIZE))
     print('Optimal path cost: %s' % sorted_x[0][1])
-    print('Best Route' + population[0])
-
+    print('Best Route: %s'  % population[0])
+'''
     #show the path through a graph
     plt.plot(tour[0])
     plt.plot(tour[0], 'ro')
@@ -248,6 +252,6 @@ def main():
     # show the cost graph
     plt.plot(costByExecution)
     plt.show()
-
+'''
 if __name__ == "__main__":
     main()
