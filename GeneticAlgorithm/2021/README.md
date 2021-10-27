@@ -1,2 +1,3 @@
-#GENETIC ALGORITHM
+GENETIC ALGORITHM
+-----------------
 
