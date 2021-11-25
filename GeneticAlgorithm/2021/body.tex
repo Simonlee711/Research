@@ -11,7 +11,7 @@ Mathematically we can also visualize them as a dynamical system.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.5\textwidth]{figures/Cov2.jpg}
+\includegraphics[width=.45\textwidth]{figures/Cov2.jpg}
 \caption{\textbf{Pictured}: SARS-CoV-2 Spike protein structure, Delta Variant Spike protein structure \cite{Fliesler}}
 \end{figure}
 
@@ -104,10 +104,14 @@ The way we simulate this behavior on a computer is by random probability.
 Though it may be possible to destroy one of our best solutions, mutations are essential to evolution. 
 With that being said although there is some random probability to destroy our best fit solution, there is also an equal chance that we construct an even better one. 
 
-\subsection{Backwards Propogation}
+\subsection{Loss Function}
 
 Now that the algorithm's components are understood, we can also explain the calculus behind the machine learning. 
-\emph{Backwards Propogation}, is a mathematical tool for improving the accuracy of predictions in machine learning. 
+A \emph{Loss Function} is what governs the learning of a machine. 
+Its a method of evaluating how well the algorithm performs given some set of data.
+And in optimizations we are seeking to find the minimums of these loss functions.
+However, there are ways to improve the overall accuracy of the predicitions.
+Therefore, \emph{Backwards Propogation}, is a mathematical tool for improving the accuracy of predictions in machine learning. 
 As we saw in \textbf{Figure 3}, the algorithm slowly begins to pick up on accuracy at a rapid pace, even though it is a stochastic. 
 Primarily in optimizations, finding the minimum or the local minima of a function can tell you the minimal cost of a particular function. 
 In fact mathematically this is exactly what we are looking for. 
