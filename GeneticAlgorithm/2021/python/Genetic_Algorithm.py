@@ -1,5 +1,5 @@
 '''
-A Python module that performs the Genetic Algorithm
+A Python module that performs the Genetic Algorithm, (Not used in paper) Built for algorithm showcasing
 '''
 __author__ = 'Simon Lee, siaulee@ucsc.edu'
 import random
