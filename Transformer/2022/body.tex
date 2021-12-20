@@ -1,0 +1,104 @@
+\section{Introduction}
+
+The field of genomics has been growing rapidly in recent years. 
+With novel approaches being developed in gaining extensive insight on genomes through Next Generation Sequencing (NGS) techniques, it has allowed scientists to understand the biology of multi-cellular organisms at a much greater scale. 
+In this research we worked specifically with single-cell transcriptome sequencing (scRNA-seq) methodology to try and map its chromatin (ATAC-seq) to specific gene expressions (GEX). 
+While these new NGS technologies have been revolutionary in terms of its speed, it is equally important to note that the massive data produced by NGS has also presented a significant challenge for data analyses \cite{one}. 
+To help combat this issue, our research team worked towards developing a unique methodology for scRNA-seq analyses by taking a pre-existing Natural Language Processing Model developed by \emph{Google} and adjusting its parameters towards our problem. 
+
+\subsection{Neural Networks}
+
+Neural networks are multi-layer algorithms that use machine learning to recognize patterns in data sets. 
+Each layer in the network is made up of many neurons with a specific activation function and these specific functions affect the activations of the following layer. 
+The networks process text, or images as input and give outputs to train the network. 
+As the inputs are passed through the hidden layers, the layers generate output. By applying and finding the best loss functions for the particular neural network \cite{two}, backwards propagation nudges the network in the right direction and forms a stochastic gradient descent, thereby optimizing the model. 
+This quick summarization describes how a neural network actually gets its ability to "learn".
+
+Within the study of neural networks is \emph{Attention}, a technique that mimics cognitive attention. 
+The effect is intended to enhance some parts of the input while diminishing other parts - the thought being that the network should devote more focus to that small but important parts of the data. 
+Learning which part of the data is more important than others depends on the context and is trained by gradient descent. 
+These attention-based models have been extremely prevalent in the field of Natural Language Processing where attention is used to perform tasks like Q\&A, translation, and summarization. So using this attention-based mechanism has been an inspiration for multi-modal predictions for scRNA-seq data.
+
+\subsection{Natural Language Processing}
+
+Natural Language Processing (NLP) is a field of machine learning that allows computers to analyze, understand, and generate human language \cite{three}. 
+NLP and text information retrieval (IR) research has begun to intersect, allowing for features such as sentiment analysis, machine translation, and extracting meaning from user text. 
+In our project we make use of the \emph{t5-small}, a Machine Translation (MT) or robotized interpretation model by \emph{Google} which performs a procedure that allows computer software to translate text from one language to another without human contribution. 
+At its fundamental level, machine translation performs a straightforward replacement of atomic words in a single characteristic language for words in another. 
+Although the t5-small has other features like understanding syntax, and Q\&A features, these will not be discussed within the scope of this paper.
+
+\subsection{Transfer Learning}
+Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task. 
+It is a popular approach in deep learning (a sub-field of machine learning) where pre-trained models are used as the starting point on computer vision and NLP tasks given the vast compute and time resources required to develop neural network models on these problems and from the huge jumps in skill that they provide on related problems. 
+
+Our \emph{t5-small} utilizes this concept of Transfer learning, where our model is first pre-trained on a data-rich task before being fine-tuned on a downstream task \cite{four}. 
+The effectiveness of transfer learning has given rise to a diversity of approaches, methodology, and practice which is one of our primary reasons for choosing this specific model from \emph{Google}. 
+The \emph{t5-small} is a model that converts every language problem into a text-to-text format. 
+Our reasoning for selecting a text-to-text format is because we will be working with specific gene expression and chromatin locations which can be passed in as string (text) input into these attention models. 
+Therefore we believe we have carefully chosen and constructed an architecture that will excel in this type of research work. 
+
+\section{The Biology}
+
+Just 10 years ago, we were only able to investigate about a dozen cells with the technology we had accessible. 
+And as of 2020 this number has grown exponentially to where we can examine millions of cells using single-cell measurement technologies, which are driving a revolution in the life sciences. 
+Recent advances make it possible to measure multiple high-dimensional modalities (e.g. DNA accessibility, RNA, and proteins) simultaneously in the same cell. Such data provides, for the first time, a direct and comprehensive view into the layers of gene regulation that drive biological diversity and disease. 
+Being able to get an understanding of this single-cell measurement data can help prompt a leap in scientific discovery in trying to comprehend the events of complex biological systems. 
+
+Predicting the flow of information from DNA to RNA and RNA to Protein Experimental techniques to measure multiple modalities within the same single cell are increasingly becoming available \cite{five}. 
+The demand for these measurements is driven by the promise to provide a deeper insight into the state of a cell. 
+Our objective is therefore to construct a multi-modal predictor using the \emph{t5-small}, attention-based models. 
+Therefore the problem we wish to approach is if we were given a modality (e.g. GEX or ATAC) we would need to predict the other one. Below we describe the two types of data we will be utilizing in our experiments.
+
+\subsection{Gene Expression (GEX)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{figures/umap_GEX_ct.pdf}
+\includegraphics[width=.35\textwidth]{figures/umap_GEX.pdf}
+\caption{Left UMAP displays our GEX cell types and our right UMAP displays our source and donors}
+\end{figure}
+
+Gene expression analysis has become routine through the development of high-throughput RNA sequencing (RNA-seq) and microarrays. 
+RNA analysis that was previously limited to tracing individual transcripts by Northern blots or quantitative PCR is now used frequently to characterize the expression profiles of populations of thousands of cells. 
+The data produced from the bulk based assays has led to the identification of genes that are differentially expressed in distinct cell populations and biomarker discovery.
+
+\subsection{Assay for Transposase-Accessible Chromatin (ATAC)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{figures/umap_ATAC_ct.pdf}
+\includegraphics[width=.35\textwidth]{figures/umap_ATAC.pdf}
+\caption{Left UMAP displays our ATAC cell types and our right UMAP displays our source and donors}
+\end{figure}
+
+Assay for Transposase-Accessible Chromatin or ATAC identifies accessible DNA regions by probing open chromatin with hyperactive mutant Tn5 Transposase that inserts sequencing adapters into open regions of the genome \cite{six}. 
+While naturally occurring transposases have a low level of activity, ATAC-seq employs the mutated hyperactive transposase \cite{seven}. 
+In a process called "tagmentation", Tn5 transposase cleaves and tags double-stranded DNA with sequencing adaptors \cite{eight}. 
+The tagged DNA fragments are then purified, PCR-amplified, and sequenced using next-generation sequencing \cite{eight}.
+Sequencing reads can then be used to infer regions of increased accessibility as well as to map regions of transcription factor binding sites and nucleosome positions \cite{six}. 
+The number of reads for a region correlate with how open that chromatin is, at single nucleotide resolution.
+
+\section{Transformer Attention Model}
+
+\subsection{Encoder}
+
+\subsection{Decoder}
+
+\begin{thebibliography}{25}
+
+\bibitem{one} Zhang, J., Chiodini, R., Badr, A., \& Zhang, G. (2011). The impact of next-generation sequencing on genomics. Journal of genetics and genomics = Yi chuan xue bao, 38(3), 95–109. https://doi.org/10.1016/j.jgg.2011.02.003
+
+\bibitem{two} Janocha, K., Czarnecki, W. M. (2017). On loss functions for deep neural networks in classification. Retrieved August 2, 2020, from the arXiv database.
+
+\bibitem{three} Nadkarni, P. M., Ohno-Machado, L.,\& Chapman, W. W. (2011). Natural language processing: an introduction. Journal of the American Medical Informatics Association: JAMIA, 18(5), 544–551. https://doi.org/10.1136/amiajnl-2011-000464
+
+\bibitem{four} Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., Zhou, Y., Li, W. and Liu, P.J., 2019. Exploring the limits of transfer learning with a unified text-to-text transformer. arXiv preprint arXiv:1910.10683.
+
+\bibitem{five} Luecken, M.D., Burkhardt, D.B., Cannoodt, R., Lance, C., Agrawal, A., Aliee, H., Chen, A.T., Deconinck, L., Detweiler, A.M., Granados, A.A. and Huynh, S., 2021, August. A sandbox for prediction and integration of dna, rna, and proteins in single cells. In Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2).
+
+\bibitem{six} Buenrostro JD, Wu B, Chang HY, Greenleaf WJ (January 2015). "ATAC-seq: A Method for Assaying Chromatin Accessibility Genome-Wide". Current Protocols in Molecular Biology. 109: 21.29.1–21.29.9. doi:10.1002/0471142727.mb2129s109. PMC 4374986. PMID 25559105.
+
+\bibitem{seven} Reznikoff WS (2008). "Transposon Tn5". Annual Review of Genetics. 42 (1): 269–86. doi:10.1146/annurev.genet.42.110807.091656. PMID 18680433.
+
+\bibitem{eight} Picelli S, Björklund AK, Reinius B, Sagasser S, Winberg G, Sandberg R (December 2014). "Tn5 transposase and tagmentation procedures for massively scaled sequencing projects". Genome Research. 24 (12): 2033–40. doi:10.1101/gr.177881.114. PMC 4248319. PMID 25079858.
+
+\end{thebibliography}
