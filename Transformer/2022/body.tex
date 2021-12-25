@@ -2,9 +2,9 @@
 
 The field of genomics has been growing rapidly in recent years. 
 With novel approaches being developed in gaining extensive insight on genomes through Next Generation Sequencing (NGS) techniques, it has allowed scientists to understand the biology of multi-cellular organisms at a much greater scale. 
-In this research we worked specifically with single-cell transcriptome sequencing (scRNA-seq) methodology to try and map its chromatin (ATAC-seq) to specific gene expressions (GEX) and vice versa. 
-While these new NGS technologies have been revolutionary in terms of its speed, it is equally important to note that the massive data produced by NGS has also presented a significant challenge for data analyses \cite{one}. 
-To help combat this issue, our research team worked towards developing a unique methodology for scRNA-seq analyses by taking a pre-existing Natural Language Processing Model developed by \emph{Google} and adjusting its parameters towards our problem. So in the next following sections we will briefly describe some Machine Learning concepts that play integral roles in the \emph{t5-small}, an \emph{attention-based transformer model}.
+In this research, we worked specifically with single-cell transcriptome sequencing (scRNA-seq) methodology to try and map its chromatin (ATAC-seq) to specific gene expressions (GEX) and vice versa. 
+While these new NGS technologies have been revolutionary in terms of their speed, it is equally important to note that the massive data produced by NGS has also presented a significant challenge for data analyses \cite{one}. 
+To help combat this issue, our research team worked towards developing a unique methodology for scRNA-seq analyses by taking a pre-existing Natural Language Processing Model developed by \emph{Google} and adjusting its parameters towards our problem. So in the next following sections, we will briefly describe some Machine Learning concepts that play integral roles in the \emph{t5-small}, an \emph{attention-based transformer model}.
 
 \subsection{Neural Networks}
 
@@ -23,11 +23,11 @@ These attention-based models have been extremely prevalent in the field of Natur
 
 Natural Language Processing (NLP) is a field of machine learning that allows computers to analyze, understand, and generate human language \cite{three}. 
 NLP and text information retrieval (IR) research has begun to intersect, allowing for features such as sentiment analysis, machine translation, and extracting meaning from user text. 
-In our project we make use of the \emph{t5-small}, a Machine Translation (MT) or robotized interpretation model by \emph{Google} which performs a procedure that allows computer software to translate text from one language to another without human contribution. 
+In our project, we make use of the \emph{t5-small}, a Machine Translation (MT) or robotized interpretation model by \emph{Google} which performs a procedure that allows computer software to translate text from one language to another without human contribution. 
 At its fundamental level, machine translation performs a straightforward replacement of atomic words in a single characteristic language for words in another. 
 Although the t5-small has other features like understanding syntax, and Q\&A features, these will not be discussed within the scope of this paper.
 
-While it seems rather peculiar to take a NLP model for scRNA-seq analyses, our intentions for using it will be cleared up in future sections. But to foreshadow our reasoning for selecting this model can be reasoned with the way the \emph{t5-small} takes in input. Passing in Python dictionaries that match for example an English sentence to its corresponding German sentence was analogous to passing in a specific cells GEX data corresponding with its ATAC-seq data. 
+While it seems rather peculiar to take a NLP model for scRNA-seq analyses, our intentions for using it will be cleared up in future sections. But to foreshadow our reasoning for selecting this model can be reasoned with the way the \emph{t5-small} takes in input. Passing in Python dictionaries that match for example an English sentence to its corresponding German sentence was analogous to passing in a specific cell GEX data corresponding with its ATAC-seq data. 
 
 \subsection{Transfer Learning}
 Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task. 
@@ -42,18 +42,18 @@ Therefore we believe we have carefully chosen and constructed an architecture th
 \section{The Biology}
 
 Just 10 years ago, scientists were only capable to investigate about a thousand cells with the technology we had accessible. 
-And as of 2020 this number has grown exponentially to where we can examine millions of cells using single-cell measurement technologies, which are driving a revolution in the life sciences. 
-Recent advances make it possible to measure multiple high-dimensional modalities (e.g. DNA accessibility, RNA, and proteins) simultaneously in the same cell. Such data provides, for the first time, a direct and comprehensive view into the layers of gene regulation that drive biological diversity and disease. 
+And as of 2020, this number has grown exponentially to where we can examine millions of cells using single-cell, measurement technologies, which are driving a revolution in the life sciences. 
+Recent advances make it possible to measure multiple high-dimensional modalities (e.g. DNA accessibility, RNA, and proteins) simultaneously in the same cell. Such data provides, for the first time, a direct and comprehensive view of the layers of gene regulation that drive biological diversity and disease. 
 Being able to get an understanding of this single-cell measurement data can help prompt a leap in scientific discovery in trying to comprehend the events of complex biological systems. 
 
-However these single cell measurements are not always accessible. Physical access to DNA is a highly dynamic property of chromatin that plays an essential role in establishing and maintaining cellular identity. The organization of accessible chromatin across the genome reflects a network of permissible physical interactions through which enhancers, promoters, insulators and chromatin-binding factors cooperatively regulate gene expression. This landscape of accessibility changes dynamically in response to both external stimuli and developmental cues, and emerging evidence suggests that homeostatic maintenance of accessibility is itself dynamically regulated through a competitive interplay between chromatin-binding factors and nucleosomes. In more simpler terms the chromatin is deemed accessible if and only if it is uncoiled. This property of being uncoiled is how we retrieve the genetic information that we desire. However as expected the chromatin accessibility is not easily accessible. In our cells we carry chromosomes which are constructed of these chromatin fibers which come coiled up. However, through unwinding these fibers, we gain access to the GEX and ATAC-seq data that is composed in our dataset.
+However, these single-cell measurements are not always accessible. Physical access to DNA is a highly dynamic property of chromatin that plays an essential role in establishing and maintaining cellular identity. The organization of accessible chromatin across the genome reflects a network of permissible physical interactions through which enhancers, promoters, insulators, and chromatin-binding factors cooperatively regulate gene expression. This landscape of accessibility changes dynamically in response to both external stimuli and developmental cues, and emerging evidence suggests that homeostatic maintenance of accessibility is itself dynamically regulated through a competitive interplay between chromatin-binding factors and nucleosomes. In simpler terms, the chromatin is deemed accessible if and only if it is uncoiled. This property of being uncoiled is how we retrieve the genetic information that we desire. However, as expected the chromatin accessibility is not easily accessible. In our cells, we carry chromosomes that are constructed of these chromatin fibers which come coiled up. However, through unwinding these fibers, we gain access to the GEX and ATAC-seq data that is composed in our dataset.
 
 Knowing how NGS has revolutionized how we can access multitudes of cell data, it is by no surprise that researchers have built methods in predicting the flow of information from DNA to RNA and RNA to Protein Experimental techniques to measure multiple modalities within the same single cell \cite{five}. 
 The demand for these measurements is driven by the promise to provide a deeper insight into the state of a cell. 
-In order to do this, many researchers have been using data science tools taking largely from Machine Learning to construct methods that will help in this data analyses.
+To do this, many researchers have been using data science tools taken largely from Machine Learning to construct methods that will help in this data analysis.
 Our objective is no different in which we wish to construct a multi-modal predictor using the \emph{t5-small}, attention-based models. 
 Our problem can be defined as if we were given a modality (e.g. GEX or ATAC) we would need to predict the other one.
-The reason we wish to know this information is because we wish to know where certain genes may be expressed in the terms of the chromatin location.
+The reason we wish to know this information is that we wish to know where certain genes may be expressed in the terms of the chromatin location.
 Below we describe the two types of data we will be utilizing in our experiments.
 
 \subsection{Gene Expression (GEX)}
@@ -66,7 +66,7 @@ Below we describe the two types of data we will be utilizing in our experiments.
 
 Gene expression analysis has become routine through the development of high-throughput RNA sequencing (RNA-seq) and microarrays. 
 RNA analysis that was previously limited to tracing individual transcripts by Northern blots or quantitative PCR is now used frequently to characterize the expression profiles of populations of thousands of cells. 
-The data produced from the bulk based assays has led to the identification of genes that are differentially expressed in distinct cell populations and biomarker discovery. This data comes in the form of \emph{annotated data} (anndata) which is a Python package for handling annotated data matrices in memory and on disk, positioned between pandas and xarray. The numbers within the cell can describe the level of gene expression within a specific immune cell as seen in \textbf{Figure 1}.
+The data produced from the bulk-based assays has led to the identification of genes that are differentially expressed in distinct cell populations and biomarker discovery. This data comes in the form of \emph{annotated data} (anndata) which is a Python package for handling annotated data matrices in memory and on disk, positioned between pandas and xarray. The numbers within the cell can describe the level of gene expression within a specific immune cell as seen in \textbf{Figure 1}.
 
 \subsection{Assay for Transposase-Accessible Chromatin (ATAC)}
 
@@ -82,18 +82,18 @@ While naturally occurring transposases have a low level of activity, ATAC-seq em
 In a process called "tagmentation", Tn5 transposase cleaves and tags double-stranded DNA with sequencing adaptors \cite{eight}. 
 The tagged DNA fragments are then purified, PCR-amplified, and sequenced using next-generation sequencing \cite{eight}.
 Sequencing reads can then be used to infer regions of increased accessibility as well as to map regions of transcription factor binding sites and nucleosome positions \cite{six}. 
-The number of reads for a region correlate with how open that chromatin is, at single nucleotide resolution.
+The number of reads for a region correlates with how open that chromatin is, at single-nucleotide resolution.
 This data is also given to us in the form of anndata but unlike the GEX data, the ATAC-seq data comes in binary (e.g. 0,1) to resemble membership of some chromatin within a cell. This property of having binary data will play a huge role in our architecture.
 
 \section{Transformer Attention Model}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.5\textwidth]{figures/t1.jpg}
+\includegraphics[width=.45\textwidth]{figures/t1.jpg}
 \caption{Full architecture on display}
 \end{figure}
 
-Transformers are taking the NLP world by storm. These incredible models are breaking multiple NLP records and pushing the state of the art. They are used in many applications like machine language translation, conversational chat bots, and even to power better search engines. To understand transformers we first must revisit the attention mechanism. One of the main advantages of the attention mechanism is its ability to have longterm memory. A transformer model can “attend” or “focus” on all previous tokens (transfer learning) that have been generated. In the following sections we will describe our model's architecture to help you understand our reasoning for the selection with its brilliance alone. In order to demonstrate the power of the architecture we will be working with a standard conversational chat bot example to understand the model at a basic level. For this reason, consider the following chat bot conversation:
+Transformers are taking the NLP world by storm. These incredible models are breaking multiple NLP records and pushing the state of the art. They are used in many applications like machine language translation, conversational chatbots, and even to power better search engines. To understand transformers we first must revisit the attention mechanism. One of the main advantages of the attention mechanism is its ability to have long-term memory. A transformer model can “attend” or “focus” on all previous tokens (transfer learning) that have been generated. In the following sections, we will describe our model's architecture to help you understand our reasoning for the selection with its brilliance alone. To demonstrate the power of the architecture we will be working with a standard conversational chatbot example to understand the model at a basic level. For this reason, consider the following chatbot conversation:
 
 \begin{figure}[H]
 \centering
@@ -133,7 +133,7 @@ Now that each word has been given a unique identity, we can proceed to the encod
 \caption{Multi-Headed Layer architecture on display}
 \end{figure}
 
-Multi-headed attention in the encoder applies a specific attention mechanism called \emph{self-attention}. \cite{nine} Self-attention is a powerful property that allows the model to associate each word in the input, to other words. So in our conversational chat bot example, it is possible that our model can learn to associate the word “you”, with “how” and “are”. It is also possible that the model learns to distinguish that words structured in this form are questions that need immediate responses. To achieve self-attention, we feed the input into 3 distinct fully connected layers to create the \emph{query, key}, and \emph{value} vectors.
+Multi-headed attention in the encoder applies a specific attention mechanism called \emph{self-attention}. \cite{nine} Self-attention is a powerful property that allows the model to associate each word in the input, to other words. So in our conversational chatbot example, our model can learn to associate the word “you”, with “how” and “are”. It is also possible that the model learns to distinguish that words structured in this form are questions that need immediate responses. To achieve self-attention, we feed the input into 3 distinct fully connected layers to create the \emph{query, key}, and \emph{value} vectors.
 
 \begin{figure}[H]
 \centering
@@ -145,9 +145,9 @@ Right: The dot product between queries and keys
 }
 \end{figure}
 
-The query key and value concept come from retrieval systems \cite{twelve}.To understand these three important parts, lets take an everyday example of how a \emph{Youtube} search works using this retrieval system. When you type a query to search for some video on \emph{Youtube}, the search engine will compare your query against a set of keys (video title, description, tags etc.) associated with candidate videos within the database, then present you with the best videos (values) that match your search. 
+The query key and value concept come from retrieval systems \cite{twelve}.To understand these three important parts, let's take an everyday example of how a \emph{Youtube} search works using this retrieval system. When you type a query to search for some video on \emph{Youtube}, the search engine will compare your query against a set of keys (video title, description, tags, etc.) associated with candidate videos within the database, then present you with the best videos (values) that match your search. 
 
-In the previous section we defined that we have created a query, key, and value to achieve self-attention. So after creation, we feed the query, key, and value vector through a linear layer, where the queries and keys undergo a dot product matrix multiplication to produce a score matrix as seen in \textbf{Figure 5}. This score matrix determines how much focus should a word be put in comparison to other words. So each word will have a score that corresponds to other words in the time-step. The higher the score the more focus. This is how the queries are mapped to the keys. \textbf{Figure 6} demonstrates our example showing us our score matrix of the conversational chat bot.
+In the previous section, we defined that we have created a query, key, and value to achieve self-attention. So after creation, we feed the query, key, and value vector through a linear layer, where the queries and keys undergo a dot product matrix multiplication to produce a score matrix as seen in \textbf{Figure 5}. This score matrix determines how much focus should a word be put in comparison to other words. So each word will have a score that corresponds to other words in the time-step. The higher the score the more focus. This is how the queries are mapped to the keys. \textbf{Figure 6} demonstrates our example showing us our score matrix of the conversational chatbot.
 
 \begin{figure}[H]
 \centering
@@ -155,13 +155,13 @@ In the previous section we defined that we have created a query, key, and value 
 \caption{Example Problem - Producing a score matrix}
 \end{figure}
 
-However an issue arises from this as currently constructed. An attention score is not always guaranteed to be an small number and in order to manage these attention scores within a finite limit we must come up with a clever solution. \\
+However, an issue arises from this as currently constructed. An attention score is not always guaranteed to be a small number and to manage these attention scores within a finite limit we must come up with a clever solution. \\
 
 \newpage
 \noindent
 \textbf{II. Softmax}
 
-In machine learning, specifically in neural networks we have a \emph{sigmoid function} denoted by the greek letter $\sigma$ which is a mathematical function having a characteristic "S"-shaped curve or sigmoid curve. A sigmoid function is simply a logistic function whose y-axis boundaries are within the range $0\leq x \leq 1$ \cite{ten}. Having this unique property of always being within this range has helped machines process much smaller numbers making it much easier to "learn" through the means of backwards propagation.
+In machine learning, specifically in neural networks, we have a \emph{sigmoid function} denoted by the Greek letter $\sigma$ which is a mathematical function having a characteristic "S"-shaped curve or sigmoid curve. A sigmoid function is simply a logistic function whose y-axis boundaries are bounded within the range $0\leq x \leq 1$ \cite{ten}. Having this unique property of always being within this range has helped machines process much smaller numbers making it much easier to "learn" through the means of backwards propagation.
 
 \begin{figure}[H]
 \centering
@@ -175,7 +175,7 @@ In machine learning, specifically in neural networks we have a \emph{sigmoid fun
 \caption{Scaling down our matrix using the softmax}
 \end{figure}
 
-So in our algorithm we perform a very similar task. Our scores get scaled down in a similar process by dividing the number by the square root of the dimension of query and key. This is to allow for more stable gradients, as multiplying values can have exploding effects. This process is called the \emph{softmax}. Similar to the sigmoid function, once we take the softmax of a matrix, we obtain a scaled score to get the attention weights, with a probability values between 0 and 1. By doing a softmax the higher scores get heightened, and lower scores are depressed. This allows the model to be more confident about which words to attend too. 
+So in our algorithm, we perform a very similar task. Our scores get scaled down in a similar process by dividing the number by the square root of the dimension of query and key. This is to allow for more stable gradients, as multiplying large values can have exploding effects. This process is called applying the \emph{softmax}. Similar to the sigmoid function, once we take the softmax of a matrix, we obtain a scaled-down score with a probability value between 0 and 1 to get the attention weights. By doing a softmax the higher scores get heightened, and lower scores are depressed. This allows the model to be more confident about which words to attend to. 
 
 \begin{figure}[H]
 \centering
@@ -183,14 +183,14 @@ So in our algorithm we perform a very similar task. Our scores get scaled down i
 \caption{Another dot product between softmax matrix and value vector to obtain output vector}
 \end{figure}
 
-Our final process with the query, keys, and values is to take our attention weights and dot it with your value vector to get an output vector. The higher softmax scores will keep the value of words the model learns is more important. The lower scores will drown out the irrelevant words. Then you feed the output of that into a linear layer to process. So as you can see the algorithm itself is especially clever in how the model determines how to attend to specific words. \\
+Our final process involving the query, keys, and values is to take our attention weights and perform another dot product with the value vector to retrieve an output vector. The higher softmax scores will keep the value of words the model deems as more important. Likewise, the lower scores will drown out the irrelevant words that should not have much focus. Then we feed the output of that into a linear layer to process. So as shown in this example, the algorithm is especially clever in determining how the model attends to specific words. \\
 
 \noindent
 \textbf{III. MULTI-headed Layer}
 
-To make this a multi-headed attention computation, you need to split the query, key, and value into N vectors before applying self-attention. The split vectors then go through the self-attention process individually. Each self-attention process is called a \emph{head}. Each head produces an output vector that gets concatenated into a single vector before going through the final linear layer. In theory, each head would learn something different therefore giving the encoder model more representation power.
+To make this a multi-headed attention computation, you need to split the query, key, and value into $N$ amount of vectors before applying self-attention. The split vectors then go through the self-attention process (the process we just covered) individually. Each self-attention process is called a \emph{head}. Each head produces an output vector that gets concatenated into a single vector before going through the final linear layer. In theory, each head would learn something different therefore giving the encoder model more representation power.
 
-One important question we asked during our development was finding the balance between the amount of heads we wish to compute versus the accuracy of our attention based neural network. In theory the increased numbers in heads would only benefit the models ability to learn, however at what point was this model too taxing and computationally slow to be considered a good model. Because we intend to work with a model that needs to process hundreds of millions of data elements, at what point were we to decide how many heads we should compute for our particular model. Our fear was that if we had "too little" heads, that our model would not be a very good predictor. So as we move forward we wanted to present our acknowledgment on this particular question we had in our development. 
+One important question we asked during our development was finding the balance between the number of heads we wish to compute versus the accuracy of our attention-based neural network. In theory, the increased numbers in heads would only benefit the model's ability to learn, however at what point was this model too taxing and computationally slow to be considered a good model. Because we intend to work with a data set that needs to process hundreds of millions of cell data, at what point were we to decide how many heads we should compute for our particular model. We feared that if we had "too little" heads, that our model would not be a very good predictor. So as we move forward we wanted to acknowledge this particular question we had during our development. 
 
 \begin{figure}[H]
 \centering
@@ -198,12 +198,12 @@ One important question we asked during our development was finding the balance b
 \caption{Multi-Headed Layer split into N = 2 "heads"}
 \end{figure}
 
-To sum it up, multi-headed attention is a module in the transformer network that computes the attention weights for the input and produces an output vector with encoded information on how each word should attend to all other words in the sequence. \\
+To sum it up, multi-headed attention is a module in the transformer network that computes the attention weights for the input and produces an output vector with encoded information on how each word should attend to all other words in that particular sequence. \\
 
 \noindent
 \textbf{IV. The Residual Connections, Layer Normalization, and Feed Forward Network}
 
-The multi-headed attention output vector that we computed in \textbf{part II} is added to the original positional input embedding. This process is called a \emph{residual connection}. The output of the residual connection goes through a layer normalization. 
+Next, the multi-headed attention output vector that we just computed is added to the original positional input embedding. This process is called a \emph{residual connection}. The output of the residual connection goes through a layer normalization. 
 
 \begin{figure}[H]
 \centering
@@ -211,22 +211,23 @@ The multi-headed attention output vector that we computed in \textbf{part II} is
 \caption{Layer Normalization}
 \end{figure}
 
-The normalized residual output gets projected through a point-wise feed-forward network for further processing. The point-wise feed-forward network is a couple of linear layers with a Rectified Linear Unit (ReLU) activation in between. In the context of neural networks, ReLU activation function\cite{eleven} is an activation function defined as the positive part of its argument: where x is the input to a neuron.
+Inside the layer normalization, the residual output gets projected through a point-wise feed-forward network for further processing. The point-wise feed-forward network is a couple of linear layers with a Rectified Linear Unit (ReLU) activation in between. In the context of neural networks, ReLU activation function\cite{eleven} is an activation function defined as the positive part of its argument: where x is the input to a neuron.
 
 \begin{equation}
 \label{softmax}
 f(x) = x^{+} = \text{max}(0,x)
 \end{equation}
 
+\newpage
 \noindent
-In mathematical terms it can be described as a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero. The rectified linear activation function overcomes the vanishing gradient problem, allowing models to learn faster and perform better.
+In mathematical terms a ReLU activation function can be described as a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero. The rectified linear activation function overcomes the vanishing gradient problem, allowing models to learn faster and perform better.
 
-Now going back to the point-wise feed-forward network, the output of that is then again added to the input of the point-wise feed-forward network and further normalized. The residual connections help the network train, by allowing gradients to flow through the networks directly. The layer normalization's are used to stabilize the network which results in substantially reducing the training time necessary. The point-wise feed-forward layer is used to project the attention outputs potentially giving it a richer representation. \\
+Now going back to the point-wise feed-forward network, the output of that is then again added to the input of the point-wise feed-forward network and further normalized. The residual connections help the network train, by allowing gradients to flow through the networks directly. The layer normalizations are used to stabilize the network which results in substantially reducing the training time necessary. The point-wise feed-forward layer is used to project the attention outputs potentially giving it a richer abstract representation. \\
 
 \noindent
 \textbf{V. Encoder Final Remarks}
 
-That wraps up the encoder layer. All of these operations are to encode the input to a continuous representation with attention information. This will help the decoder focus on the appropriate words in the input during the decoding process. You can stack the encoder N times to further encode the information, where each layer has the opportunity to learn different attention representations therefore potentially boosting the predictive power of the transformer network.
+With that, that wraps up the encoder layer. All of these operations are to encode the input to a continuous representation with attention information. This will help the decoder focus on the appropriate words in the input during the decoding process. You can stack the encoder N times to further encode the information, where each layer has the opportunity to learn different attention representations therefore potentially boosting the predictive power of the transformer network.
 
 \subsection{Decoder}
 
@@ -236,14 +237,14 @@ That wraps up the encoder layer. All of these operations are to encode the input
 \caption{Decoder Architecture}
 \end{figure}
 
-The decoder’s job is to generate text sequences. The decoder has a similar sub-layer as the encoder. it has two multi-headed attention layers, a point-wise feed-forward layer, and residual connections, and layer normalization after each sub-layer. These sub-layers behave similarly to the layers in the encoder but each multi-headed attention layer has a different job. The decoder is capped off with a linear layer that acts as a classifier, and a softmax to get the word probabilities. So on a high level, the decoders role is to take our continuous representation and step by step generates a single output while also being fed the previous output.
+The decoder’s job is to generate text sequences from the abstract representation containing attention information. To our surprise, the decoder has a similar architecture in terms of its sub-layer as the encoder. It has two multi-headed attention layers, a point-wise feed-forward layer, and residual connections, and layer normalization after each sub-layer. These sub-layers behave similarly to the layers in the encoder but each multi-headed attention layer has a different job. The decoder is capped off with a linear layer that acts as a classifier, and a softmax to get the word probabilities. So on a high level, the decoder's role is to take our continuous representation and step by step generates a single output while also being fed the previous output.
 
-The decoder is \emph{auto-regressive}, it begins with a start token, and it takes in a list of previous outputs as inputs, as well as the encoder outputs that contain the attention information from the input. The decoder stops decoding when it generates a token as an output. \\
+The decoder is \emph{auto-regressive} meaning it begins with a start token, and it takes in a list of previous outputs as inputs, as well as the encoder outputs that contain the attention information from the input. The decoder stops decoding when it generates a token as an output. \\
 
 \noindent
 \textbf{I. Multi-Headed Layer}
 
-This multi-headed attention layer operates slightly differently. Since the decoder is auto-regressive and generates the sequence word by word, you need to prevent it from conditioning to future tokens. For example, when computing attention scores on the word “am”, you should not have access to the word “fine”, because that word is a future word that was generated after. The word “am” should only have access to itself and the words before it. This is true for all other words, where they can only attend to previous words.
+As mentioned in the introduction the primary difference occurs within the multi-headed layer. Since the decoder is auto-regressive and generates the sequence word by word, you need to prevent it from conditioning the future tokens. For example, when computing attention scores on the word “am”, you should not have access to the word “fine”, because that word is a future word that was generated after. The word “am” should only have access to itself and the words before it. This is true for all other words, where they can only attend to previous words.
 
 \begin{figure}[H]
 \centering
@@ -251,7 +252,7 @@ This multi-headed attention layer operates slightly differently. Since the decod
 \caption{Multi-Headed Layer shouldn't access future tokens}
 \end{figure}
 
-As a result we need a method to prevent the issue of computing attention scores for future words. Therefore we use a method called \emph{masking}. To prevent the decoder from looking at future tokens, you apply a look ahead mask. The mask is added before calculating the softmax, and after scaling the scores. \\
+As a result, we need a method to prevent the issue of computing attention scores for future words. Therefore we use a method called \emph{masking}. To prevent the decoder from looking at future tokens, you apply a look-ahead mask. The mask is added before calculating the softmax, and after scaling the scores. \\
 
 \noindent
 \textbf{II. Look Ahead Mask}
@@ -262,7 +263,7 @@ As a result we need a method to prevent the issue of computing attention scores 
 \caption{Scaled scores being added to the look ahead mask to retrieve a matrix of masked scores}
 \end{figure}
 
-The look ahead mask is a matrix that’s the same size as the attention scores filled with values of 0’s and/or negative infinities. When you add the mask to the scaled attention scores, you get a matrix of the scores, with the top right triangle filled with negativity infinities as shown in \textbf{Figure 13}. Adding these two sets of matrices together help us obtain our masked scores.
+The look-ahead mask is a matrix that’s the same size as the attention scores filled with values of 0’s and/or negative infinities. When you add the mask to the scaled attention scores, you get a matrix of the scores, with the top right triangle filled with negativity infinities as shown in \textbf{Figure 13}. Adding these two sets of matrices together helps us obtain our masked scores.
 
 \begin{figure}[H]
 \centering
@@ -274,7 +275,7 @@ The look ahead mask is a matrix that’s the same size as the attention scores f
 
 The reason for the mask is because once you take the softmax of the masked scores, the negative infinities get zeroed out, leaving zero attention scores for future tokens. As you can see in the \textbf{Figure 14}, the attention scores for “am”, has values for itself and all words before it but is zero for the word “fine”. This essentially tells the model to put no focus on those words.
 
-This masking is the only difference in how the attention scores are calculated in the first multi-headed attention layer. This layer still has multiple heads, that the mask is being applied to, before getting concatenated and fed through a linear layer for further processing. The output of the first multi-headed attention is a masked output vector with information on how the model should attend on the decoder’s input. \\
+This masking is the only difference in how the attention scores are calculated in the first multi-headed attention layer. This layer still has multiple heads, that the mask is being applied to, before getting concatenated and fed through a linear layer for further processing. The output of the first multi-headed attention is a masked output vector with information on how the model should attend to the decoder’s input. \\
 
 \noindent
 \textbf{III. Second Multi-Headed Layer}
@@ -292,16 +293,59 @@ The output of the final point-wise feed-forward layer goes through a final linea
 \caption{Last steps in decoder to properly determine the predicted word}
 \end{figure}
 
-
 The decoder then takes the output, add’s it to the list of decoder inputs, and continues decoding again until a token is predicted. For our case, the highest probability prediction is the final class which is assigned to the end token.
 
 The decoder can also be stacked N layers high, each layer taking in inputs from the encoder and the layers before it. By stacking the layers, the model can learn to extract and focus on different combinations of attention from its attention heads, potentially boosting its predictive power.
 \newpage
 
-\section{Our implementation}
+\section{Preprocessing \& Training}
 
+In this section, we will discuss the parameters we decided to change for our biology-based problem. As it currently stands this model will not necessarily work because our data is not properly prepared to be fed into the \emph{t5-small}. With our main objective to be able to map GEX to ATAC-seq data and vice versa, there are potential architectural issues we had to address in order to make this work. Our design will be discussed in this section.
 
+\subsection{Data Preprocessing: Binarizing our Data}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=.85\textwidth]{figures/gexdata.jpg}
+\caption{Our GEX data}
+\end{figure}
+
+One of the primary issues that currently stand is that our data is not "legible". If we were to feed the data into our model without any edits, it would most definitely fail because our transformer model does not know how to extract data from the anndata matrix. Anndata is a rather hard data structure to work with overall because it is hard to manipulate the entries of the matrix. Its primary purpose is to just have a scalable way of keeping track of data and its learned annotations. Therefore one of the first changes we made was converting our anndata into a NumPy array. Our decision to change our matrix data structure was influenced by the fact that it is much easier to manipulate any size matrix easily with the built-in tools of NumPy. 
+
+Although we are now able to manipulate the entries of the matrix more familiarly, we still have not fixed the legibility issue. It is indeed true that neural networks learn from numbers but what good will feeding a float number do for our neural network in the training process. For example in our GEX data at row 2, we can see that CTATGGCCATACGGG-1-s1d1 has expressed the gene UBE2J2 at 2.194758. However what valuable information does our model grasp in this process? While we don't have an exact answer, we can assume it will learn nothing because there are no patterns found within the float numbers alone. So to overcome this issue we came up with a high risk low reward solution. 
+
+Our ATAC-seq anndata was presented to us in a binary form. Traditionally binary has been used to express whether something has membership into a specific group. Therefore to pass in strings instead of integers and floats, we decided to binarize our GEX data. However, it is important to acknowledge that by doing this, we most definitely lose out on some important information. But by binarizing our data we can extract the specific gene expression and/or chromatin in its string form to pass it in as a python dictionary for preprocessing. We set the threshold to be over/under 2.0 meaning that if the gene expressed was under 2.0 it would be converted to 0 and if it was 2.0 or above it would be converted into 1. In our example, the CTATGGCCATACGGG-1-s1d1 which expressed the gene UBE2J2 at 2.194758 would be converted to a 1 because 2.194758 is greater than 2.0. So while we think this is a witty solution, we also know that gene expression is not a one-dimensional measurement and we lose some important information in the process. 
+
+\subsection{Data Preprocessing: Setting up our input}
+
+Now that our data is binarized, the second part of the preprocessing is to get our data ready to be fed into our Transformer attention model. As mentioned in the previous section, the primary motivation on converting our data into binary was to express membership to a group. In our case it is to express membership to a certain gene being expressed or a chromatin location at which it occurs. Knowing this information we just came up with a solution in the previous section to pass in strings as input versus the integers and floats. Because the transformer is a NLP model it was important that we made our input into strings so that our model could properly learn in the process. 
+
+\begin{equation}
+\textbf{\{{\text{'En': 'That is good.'}}, {{\text{'De': 'Das ist gut.'}}\}}}
+\end{equation}
+
+\begin{equation}
+\textbf{\{ \text{'TAGGTA': 'chr1-633515 chr1-633525 '},  \text{'TAGGTA': 'MT-ND3 MT-ND4 MT-CYB '}\}}
+\end{equation}
+
+The transformer takes in input through the use of Python dictionaries. Python Dictionaries are quite the intuitive design because they come with a key and a value. The key is typically some label that we can use to identify a certain entry and the value is some quantity or text that is associated with the key. So in \textbf{(5)} we can see a NLP example. In this example, the keys are the languages in which we want to perform a machine translation and the values are the English and German phrases that correspond to each other. Similarly, in \textbf{(6)} the key resembles the cell name and the value is the gene being expressed and the chromatin location. To get all cells with their associated GEX and ATAC-seq dictionaries we made a python function that traversed the whole matrix and extracted the text if and only if their binary value was switched to 1. Though this computation is rather slow we have had conversations about using a sparse matrix in the future to combat this slow computational speed. However, in our first version of the model, we have decided to let our computer simply take as much time as it needed to get our dictionaries set up. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.85\textwidth]{figures/pyfunc.jpg}
+\caption{Dictionary Construction}
+\end{figure}
+
+\noindent
+After creating all the dictionaries for each individual cell we stored them into a .txt file as a place to hold all information. By doing so we have completed the preprocessing portion for our multi-modal predictor program.
+
+\subsection{Training}
+
+At last we look to begin training our model. Because the \emph{t5-small} is a well established model from \emph{Google}, we simply had to pip install all the models packages and began the training process. Because the t5-small was a pretrained model, we had to retrain this model from scratch. So we look to perform 
+
+\section{Results}
+
+\section{Acknowledgement}
 
 \begin{thebibliography}{25}
 
