@@ -46,7 +46,8 @@ And as of 2020, this number has grown exponentially to where we can examine mill
 Recent advances make it possible to measure multiple high-dimensional modalities (e.g. DNA accessibility, RNA, and proteins) simultaneously in the same cell. Such data provides, for the first time, a direct and comprehensive view of the layers of gene regulation that drive biological diversity and disease. 
 Being able to get an understanding of this single-cell measurement data can help prompt a leap in scientific discovery in trying to comprehend the events of complex biological systems. 
 
-However, these single-cell measurements are not always accessible. Physical access to DNA is a highly dynamic property of chromatin that plays an essential role in establishing and maintaining cellular identity. The organization of accessible chromatin across the genome reflects a network of permissible physical interactions through which enhancers, promoters, insulators, and chromatin-binding factors cooperatively regulate gene expression. This landscape of accessibility changes dynamically in response to both external stimuli and developmental cues, and emerging evidence suggests that homeostatic maintenance of accessibility is itself dynamically regulated through a competitive interplay between chromatin-binding factors and nucleosomes. In simpler terms, the chromatin is deemed accessible if and only if it is uncoiled. This property of being uncoiled is how we retrieve the genetic information that we desire. However, as expected the chromatin accessibility is not easily accessible. In our cells, we carry chromosomes that are constructed of these chromatin fibers which come coiled up. However, through unwinding these fibers, we gain access to the GEX and ATAC-seq data that is composed in our dataset.
+However, these single-cell measurements are not always accessible. Physical access to DNA is a highly dynamic property of chromatin that plays an essential role in establishing and maintaining cellular identity. The organization of accessible chromatin across the genome reflects a network of permissible physical interactions through which enhancers, promoters, insulators, and chromatin-binding factors cooperatively regulate gene expression. This landscape of accessibility changes dynamically in response to both external stimuli and developmental cues, and emerging evidence suggests that homeostatic maintenance of accessibility is itself dynamically regulated through a competitive interplay between chromatin-binding factors and nucleosomes. In simpler terms, the chromatin is deemed accessible if and only if it is uncoiled. This property of being uncoiled is how we retrieve the genetic information that we desire. However, as expected the chromatin accessibility is not easily accessible. In our cells, we carry chromosomes that are constructed of these chromatin fibers which come coiled up. So if accessible, there is a pooled barcode method called \emph{sci-CAR} that allows a joint profiling of chromatin accessibility (scATAC-seq) and gene expression (GEX) of single cells in which we obtain our two types of data.
+
 
 Knowing how NGS has revolutionized how we can access multitudes of cell data, it is by no surprise that researchers have built methods in predicting the flow of information from DNA to RNA and RNA to Protein Experimental techniques to measure multiple modalities within the same single cell \cite{five}. 
 The demand for these measurements is driven by the promise to provide a deeper insight into the state of a cell. 
@@ -341,11 +342,51 @@ After creating all the dictionaries for each individual cell we stored them into
 
 \subsection{Training}
 
-At last we look to begin training our model. Because the \emph{t5-small} is a well established model from \emph{Google}, we simply had to pip install all the models packages and began the training process. Because the t5-small was a pretrained model, we had to retrain this model from scratch. So we look to perform 
+At last, we look to begin training our model. Because the \emph{t5-small} is a well-established model from \emph{Google}, we simply had to pip install all the model's packages as well as import them into our code and begin the training process. Because the t5-small was a pre-trained model, we had to retrain this model from scratch. What that means for us is that our model relies solely on the 22,463 cells to build its intuition even with the sparsity of our data. When a data set is sparse it means that the majority of the matrix data are filled with zeros. In our scATAC-seq and GEX matrices, only about 3\% of our entries were non-zero. So while we have a decent-sized matrix of 22,463 different types of cells, this may be slightly deficient for completely accurate predictions.  
 
-\section{Results}
+\section{Preliminary Results}
+
+After the completion of our training, our model, in theory, is ready for use. So as a result we designed a test using some conference-level code vs our t5-small transformer model. The purpose of these tests was to run a series of tests and get an approximate value that assesses the accuracy of the prediction. We pulled 4 models designed for multi-modality prediction from the NeurIPS Conference. All these models are designed to use different machine learning designs that perform the same task as our model. These 4 models are the \emph{KAUST, Cajal, Dengkw,} and the \emph{DANCE} \cite{thirteen}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{figures/data1.png}
+\includegraphics[width=.4\textwidth]{figures/data2.png}\\
+\includegraphics[width=.4\textwidth]{figures/data3.png}
+\includegraphics[width=.4\textwidth]{figures/data4.png}
+\caption{Prediction percentages lined up against conference code}
+\end{figure}
+
+
+All the models presented in these experiments are a two-way system. Therefore we designed a test that assessed the accuracy by running 500 different inputs: 
+250 ATAC->GEX \& 250 GEX->ATAC. Through this, we got preliminary results as presented in \textbf{Figure 18}. Our model's accuracy for its predictions lies within the range 65\% and 70\%. Meanwhile some of the code from the other lies within the 80\% to 90\% range. While there tends to be a noticeable gap, we have previously mentioned why this appears to be the case. 
+
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||c | c | c||} 
+ \hline
+ Model & t5-small & Opposing Model \\ [0.5ex] 
+ \hline\hline
+ KAUST & 65.8 & 84.6  \\ 
+ Cajal & 68.3 & 87.8  \\
+ Dengkw & 67.3 & 86.9  \\
+ DANCE & 66.5 & 91.1  \\ [1ex]
+ \hline
+ \end{tabular}
+\end{table}
+
+Our model loses a significant amount of important GEX data when we decided to binarize our data during the preprocessing. Our reasoning for this binarization was based solely on the way we constructed the data to be trained. Because we wanted to express membership to obtain the name we decided to choose a threshold of 2.0 and make that as a way to determine which cells are flipped to 0 and 1's. So while our model can perform really well in the ATAC->GEX prediction, it lacks a little in the GEX->ATAC. We ran this test on the t5-small on 4 different occasions to see how it would match up with the model it was competing against and we saw a high of 68.3\% accuracy and a low of 65.8\%. While the model is not perfect, we can say that this model was no doubt successful. By taking a novel approach using an NLP-based tool and using it in a biological problem, there was no doubt that we would experience some trouble in the process. However, we believe that our prototype model has the potential to be a viable method using single-cell analyses across all modalities.  
+
+\section{Conclusion}
+
+The t5-small transformer model by Google can officially now add predicting scRNA-seq modalities from one another into its list of functional tasks.  While we have seen ample progress throughout this research, we must acknowledge as well the deficiencies
+that currently exist and where we will go from here.
+
+In terms of our lost data in the preprocessing process, we will work towards finding a more clever solution that may not lose out on Gene expression data as we have identified GEX to be more than one-dimensional. Additionally, we also are trying to find ways to optimize the data preparation and preprocessing of this model. Constructing roughly 22,000 python dictionaries that are relocated into .txt files served to be an extremely slow process. However with our lab containing mathematicians who study algorithmic development we have already thought of ways to optimize our code through the use of sparse matrices to limit the extreme matrix space that we are asked to work with. Therefore through it all, we have seen promise in our model and will continue to look for ways to optimize and work with a more complex representation of our data. With scRNA-seq still being a very active form of research, our expectation is that we will see more data science tools coming from all different fields of machine learning to be soon implemented into biological data analyses.
 
 \section{Acknowledgement}
+
+
 
 \begin{thebibliography}{25}
 
@@ -372,5 +413,7 @@ At last we look to begin training our model. Because the \emph{t5-small} is a we
 \bibitem{eleven} Brownlee, J (2019). "A Gentle Introduction to the Rectified Linear Unit (ReLU)". Machine Learning Mastery. Retrieved 8 April 2021.
 
 \bibitem{twelve} Jansen, B. J. and Rieh, S. (2010) "The Seventeen Theoretical Constructs of Information Searching and Information Retrieval Archived 2016-03-04 at the Wayback Machine." Journal of the American Society for Information Sciences and Technology. 61(8), 1517-1534.
+
+\bibitem{thirteen} https://github.com/openproblems-bio/neurips2021\_multimodal\_topmethods
 
 \end{thebibliography}
